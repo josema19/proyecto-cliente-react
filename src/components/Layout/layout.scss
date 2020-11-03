@@ -1,0 +1,198 @@
+/* Estilos Layout */
+
+/* Custom Header */
+.custom-header-container {
+    align-items: flex-start;
+    background-color: $light-gray;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+
+    .item-left-title {
+        font-family: "Roboto Slab";
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .item-right-line {
+        margin-right: 40px;
+    }
+
+    .item-right-name,
+    .item-right-role {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .item-right-name {
+        font-weight: normal;
+    }
+}
+
+/* Header */
+.navigation-background {
+    background-color: $aquamarine;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.navigation-container {
+    .navigation {
+        display: flex;
+    }
+
+    .logo {
+        height: 80px;
+        margin: 5px auto 5px 10px;
+        width: 80px;
+    }
+
+    .menu {
+        align-items: center;
+        background-color: transparent;
+        border-bottom: none;
+        display: flex;
+        justify-content: space-evenly;
+        list-style: none;
+        padding: 0;
+        width: 100%;
+    }
+
+    .navigation-text {
+        color: $black;
+        font-family: "Roboto Slab";
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.5s ease;
+    }
+
+    .ant-menu-item a {
+        color: $white !important;
+    }
+
+    .ant-menu-item-selected {
+        color: $white !important;
+        border-bottom: 2px solid $white !important;
+    }
+    .ant-menu-item-active {
+        border-bottom: 2px solid $white !important;
+    }
+
+    .ant-divider {
+        border-left: 2px solid $black;
+        height: 50px;
+    }
+}
+
+/* Footer */
+.footer {
+    background-color: $aquamarine;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 35px;
+    padding: 20px;
+
+    .footer-logo {
+        height: 180px;
+        width: 180px;
+    }
+
+    .footer-container {
+        display: flex;
+        justify-content: space-evenly;
+        width: 30%;
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            opacity: 0.8;
+            text-align: center;
+
+            .footer-title {
+                font-weight: bold;
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .footer-link {
+                margin-bottom: 15px;
+
+                .whatsapp-phone,
+                a {
+                    color: $white;
+                    font-size: 16px;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+}
+
+/* Sider */
+.side-menu {
+    background-color: $aquamarine;
+    height: 100vh;
+    max-width: 368px !important;
+    min-width: 280px !important;
+    width: 20% !important;
+    position: relative;
+
+    .side-logo {
+        margin: 10px auto;
+        text-align: center;
+        svg {
+            width: 150px;
+            height: 150px;
+        }
+    }
+
+    .side-small-logo {
+        svg {
+            height: 100px;
+            width: 100px;
+        }
+    }
+
+    .side-item {
+        background-color: $aquamarine;
+        color: $white;
+        font-size: 16px;
+        margin: 0 !important;
+        padding: 1.5rem 0;
+
+        a {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+        }
+
+        svg {
+            height: 24px;
+            margin-left: 25px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        p {
+            display: inline-block;
+            margin: 0;
+        }
+    }
+
+    .side-item.ant-menu-item-selected {
+        background-color: $white-transparent !important;
+        border-radius: 4px;
+        color: $black;
+        font-weight: 500;
+    }
+
+    .sign-out-item {
+        bottom: 0px;
+        position: absolute;
+    }
+}

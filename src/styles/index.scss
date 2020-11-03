@@ -1,0 +1,42 @@
+/* Importar Estilos de Antd por defecto */
+@import "~antd/dist/antd.css";
+
+/* Importar Fuentes y Colores */
+@import "colors";
+@import "fonts";
+
+/* Importar Estilos de Otros Componentes */
+@import "../components//Layout/layout.scss";
+@import "../components//Session//session.scss";
+@import "../components//Alert/alert.scss";
+@import "../components//Users/users.scss";
+
+/* Definir Estilos Globales */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: "Roboto";
+
+    // // border: 10px solid yellow !important;
+    // background-color: $gray;
+    // margin: 0;
+    // height: 1200px;
+}
+
+.main-container {
+    margin: 0 auto;
+    max-width: 1280px;
+}
+
+.main-internal-container {
+    width: 95%;
+    margin: 0 auto;
+}

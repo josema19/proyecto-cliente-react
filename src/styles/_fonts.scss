@@ -1,0 +1,32 @@
+/* Fuente Roboto */
+@font-face {
+    font-family: "Roboto";
+    src: local("Roboto"),
+        url(./fonts/Roboto/Roboto-Regular.ttf) format("truetype");
+    font-weight: 400;
+}
+@font-face {
+    font-family: "Roboto";
+    src: local("Roboto"), url(./fonts/Roboto/Roboto-Bold.ttf) format("truetype");
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Roboto";
+    src: local("Roboto"),
+        url(./fonts/Roboto/Roboto-Black.ttf) format("truetype");
+    font-weight: 800;
+}
+
+/* Fuente Roboto Slab */
+@font-face {
+    font-family: "Roboto Slab";
+    src: local("Roboto Slab"),
+        url(./fonts/Roboto_Slab/RobotoSlab-Regular.ttf) format("truetype");
+    font-weight: 400;
+}
+@font-face {
+    font-family: "Roboto Slab";
+    src: local("Roboto Slab"),
+        url(./fonts/Roboto_Slab/RobotoSlab-Bold.ttf) format("truetype");
+    font-weight: 700;
+}

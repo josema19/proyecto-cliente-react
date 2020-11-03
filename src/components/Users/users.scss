@@ -1,0 +1,43 @@
+.users-list {
+    .users-list-title {
+        display: flex;
+        justify-content: space-between;
+
+        h1 {
+            font-size: 20px;
+        }
+    }
+
+    .users-list-content {
+        thead,
+        .ant-table-thead {
+            .ant-table-column-sorters,
+            .ant-table-cell {
+                background-color: $white;
+                color: $color2;
+                font-size: 16px;
+            }
+        }
+
+        .ant-table-row {
+            background-color: $aquamarine;
+
+            td {
+                border-bottom: 5px solid $white;
+            }
+
+            .ant-table-cell {
+                font-size: 15px;
+                font-family: "Roboto";
+                margin: auto;
+                padding-top: 0;
+                padding-bottom: 0;
+                height: 50px;
+
+                p {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

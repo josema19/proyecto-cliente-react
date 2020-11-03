@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="31.5" height="31.5" viewBox="0 0 31.5 31.5">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="23.1" height="20.483" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="home-24px" opacity="0.8">
+    <path id="Trazado_249" data-name="Trazado 249" d="M0,0H31.5V31.5H0Z" fill="none"/>
+    <g id="Repetir_cuadrícula_1" data-name="Repetir cuadrícula 1" transform="translate(4.203 5.017)" clip-path="url(#clip-path)">
+      <g transform="translate(-4.203 -5.017)">
+        <path id="Trazado_250" data-name="Trazado 250" d="M11.839,22.6V16.449H16.86V22.6a1.246,1.246,0,0,0,1.255,1.23h3.766a1.246,1.246,0,0,0,1.255-1.23V13.989h2.134a.608.608,0,0,0,.414-1.07l-10.5-9.26a1.285,1.285,0,0,0-1.682,0l-10.5,9.26a.611.611,0,0,0,.414,1.07H5.561V22.6a1.246,1.246,0,0,0,1.255,1.23h3.766A1.246,1.246,0,0,0,11.839,22.6Z" transform="translate(1.401 1.672)" fill="#dde8f1"/>
+      </g>
+    </g>
+  </g>
+</svg>
