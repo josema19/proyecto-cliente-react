@@ -15,7 +15,7 @@ export default (state, action) => {
         ...state,
         users: action.payload,
         loading: false,
-      }
+      };
     default:
       return state;
   }

@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useState, useContext, useEffect } from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, Upload } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 // Importar context
@@ -35,7 +35,7 @@ const Signup = () => {
   }, [redirect, history])
 
   // Definir funciones
-  const onFinish = async values => {
+  const onFinish = async (values) => {
     // Habilitar componente de carga
     setLoading(true);
 

@@ -24,7 +24,7 @@ const UserState = ({ children }) => {
 
   // Definir funciones
   /**
-   * Obtiene la información de todos los usuarios de la aplicación
+   * Obtiene la información de todos los usuarios de la aplicación.
    */
   const getUsers = async () => {
     try {
@@ -41,7 +41,6 @@ const UserState = ({ children }) => {
         type: FAILED_GET_USERS,
         payload: error.response.data.msg,
       })
-
     }
   };
 

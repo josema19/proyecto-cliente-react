@@ -12,7 +12,18 @@ export const DASHBOARD = '/dashboard'
 
 // Menu Administrador o Usuario
 export const ORDERS = '/orders'
+export const ORDER = '/orders/create'
+
 export const PRODUCTS = '/products'
+export const PRODUCT = '/products/:id'
+export const PRODUCT_CREATE = '/products/create'
+export const PRODUCT_EDIT = '/products/edit'
+
 export const PROFILE = '/profile'
+
 export const RECIPES = '/recipes'
+export const RECIPE = '/recipes/:id'
+export const RECIPE_CREATE = '/recipes/create'
+export const RECIPE_EDIT = '/recipes/edit'
+
 export const USERS = '/users'

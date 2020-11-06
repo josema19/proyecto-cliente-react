@@ -12,10 +12,14 @@ export const FAILED_GET_USERS = 'FAILED_GET_USERS';
 export const SUCCESSFUL_GET_USERS = 'SUCCESSFUL_GET_USERS';
 
 // Contex Products
+export const FAILED_GET_PRODUCTS = 'FAILED_GET_PRODUCTS';
+export const SUCCESSFUL_GET_PRODUCTS = 'SUCCESSFUL_GET_PRODUCTS';
+export const SUCCESSFUL_UPLOAD_FILE = 'SUCCESSFUL_UPLOAD_FILE';
 
 // Context Recipes
 
 // Context Orders
 
 // Todos los Context
+export const SHOW_ALERT = 'SHOW_ALERT';
 export const CLEAN_ALERTS = 'CLEAN_ALERTS';
