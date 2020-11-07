@@ -8,13 +8,13 @@ import AuthReducer from './AuthReducer';
 // Importar types
 import {
   AUTHENTICATED_USER,
-  CLEAN_ALERTS,
+  CLEAN_MESSAGE,
   FAILED_AUTHENTICATED_USER,
-  FAILED_LOGIN,
-  FAILED_REGISTRATION,
   LOGOUT,
   SUCCESSFUL_REGISTRATION,
   SUCCESSFUL_LOGIN,
+  SUCCESSFUL_FORGOT_PASSWORD,
+  SWITCH_LOADING,
 } from '../../types';
 
 // Importar configuraciones
@@ -27,8 +27,8 @@ const AuthState = ({ children }) => {
     token: localStorage.getItem('token'),
     authenticated: null,
     user: null,
-    message: null,
-    loading: true,
+    messageA: null,
+    loading: false,
   }
 
   // Definir reducer
@@ -57,14 +57,41 @@ const AuthState = ({ children }) => {
         type: FAILED_AUTHENTICATED_USER,
         payload: error.response.data.msg
       });
-
-      // Remover alerta
-      setTimeout(() => {
-        dispatch({
-          type: CLEAN_ALERTS
-        });
-      }, 2000);
     };
+  };
+
+  /**
+   * Cambia el estado de message a null.
+   */
+  const cleanMessage = () => {
+    dispatch({
+      type: CLEAN_MESSAGE,
+    });
+  };
+
+  /**
+   *
+   * @param {*} values
+   * Actualiza la contraseña del usuario.
+   */
+  const forgotPassword = async (values) => {
+    // Intentar actualizar la información en BD
+    try {
+      // Enviar a la BD
+      const response = await axiosClient.post('/api/users/forgotten-password', values);
+
+      // Actualizar state
+      dispatch({
+        type: SUCCESSFUL_FORGOT_PASSWORD,
+        payload: response.data.msg,
+      });
+
+      return Promise.resolve();
+
+    } catch (error) {
+      // Enviar mensaje de falla
+      return Promise.reject({ msg: error.response.data.msg });
+    }
   };
 
   /**
@@ -74,37 +101,21 @@ const AuthState = ({ children }) => {
    */
   const login = async (values) => {
     // Intentar obtener datos de la bd
-    let response = null
     try {
       // Enviar a la BD
-      response = await axiosClient.post('/api/auth', values);
+      const response = await axiosClient.post('/api/auth', values);
 
-      // Actualizar state del mensaje
+      // Actualizar state
       dispatch({
         type: SUCCESSFUL_LOGIN,
         payload: response.data.token,
       });
-    } catch (error) {
-      // Actualizar state del mensaje
-      dispatch({
-        type: FAILED_LOGIN,
-        payload: error.response.data.msg,
-      });
-    };
 
-    // Borrar mensaje
-    setTimeout(() => {
-      dispatch({
-        type: CLEAN_ALERTS,
-      });
-    }, 2000);
-
-    // Devolver promesa según sea el caso
-    if (response) {
       return Promise.resolve();
-    } else {
-      return Promise.reject(new Error('Error 404. Ver mensaje en interfaz'));
-    }
+    } catch (error) {
+      // Enviar mensaje de falla
+      return Promise.reject({ msg: error.response.data.msg });
+    };
   };
 
   /**
@@ -123,37 +134,33 @@ const AuthState = ({ children }) => {
    */
   const registerUser = async (values) => {
     // Intentar registrar usuario
-    let response = null;
     try {
       // Enviar a la BD
-      response = await axiosClient.post('/api/users', values);
+      const response = await axiosClient.post('/api/users', values);
 
       // Actualizar state del mensaje
       dispatch({
         type: SUCCESSFUL_REGISTRATION,
         payload: response.data.msg,
       });
-    } catch (error) {
-      // Actualizar state del mensaje
-      dispatch({
-        type: FAILED_REGISTRATION,
-        payload: error.response.data.msg,
-      });
-    };
 
-    // Borrar mensaje
-    setTimeout(() => {
-      dispatch({
-        type: CLEAN_ALERTS,
-      });
-    }, 2000);
-
-    // Devolver promesa según sea el caso
-    if (response) {
       return Promise.resolve();
-    } else {
-      return Promise.reject(new Error('Error 404. Ver mensaje en interfaz'));
-    }
+    } catch (error) {
+      // Enviar mensaje de falla
+      return Promise.reject({ msg: error.response.data.msg });
+    };
+  };
+
+  /**
+   *
+   * @param {*} bool
+   * Cambia de true a false y viceversa la carga de un componente.
+   */
+  const switchLoading = (bool) => {
+    dispatch({
+      type: SWITCH_LOADING,
+      payload: bool,
+    });
   };
 
   // Renderizar componente
@@ -161,14 +168,17 @@ const AuthState = ({ children }) => {
     <AuthContext.Provider
       value={{
         authenticated: state.authenticated,
-        message: state.message,
+        messageA: state.messageA,
         loading: state.loading,
         token: state.token,
         user: state.user,
         authenticatedUser,
+        cleanMessage,
+        forgotPassword,
         login,
-        registerUser,
         logout,
+        registerUser,
+        switchLoading,
       }}
     >
       {children}

@@ -1,13 +1,10 @@
 // Importar librerías
-import React, { useState, useContext, useEffect } from 'react';
-import { Form, Input, Button } from 'antd';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Form, Input, Button, message } from 'antd';
+import { Link, useHistory, } from 'react-router-dom';
 
 // Importar rutas
 import * as ROUTES from '../../constants/routes';
-
-// Importar otros componentes
-import Alert from '../Alert'
 
 // Importar context
 import AuthContext from '../../context/auth/AuthContext';
@@ -15,34 +12,30 @@ import AuthContext from '../../context/auth/AuthContext';
 const Signin = () => {
   // Definir context
   const authContext = useContext(AuthContext);
-  const { message, authenticated, login } = authContext;
+  const { authenticated, loading, login, switchLoading } = authContext;
 
   // Definir nueva instancia de useHistory
   const history = useHistory();
-
-  // Definir state local
-  const [loading, setLoading] = useState(false);
-  const [ready, setReady] = useState(false);
 
   // Definir nueva instancia de useForm
   const [FormInstance] = Form.useForm();
 
   // Definir effect para redireccionar
   useEffect(() => {
-    if (authenticated && ready) {
+    if (authenticated && !loading) {
       history.push(ROUTES.DASHBOARD);
     }
-  }, [authenticated, history, ready])
+  }, [authenticated, history, loading])
 
   /**
    *
    * @param {*} values
-   * Procesa los valores entrada porvenientes del formulario para ser almacenados
+   * Procesa los valores entrada provenientes del formulario para ser almacenados
    * en la BD.
    */
   const onFinish = async (values) => {
     // Habilitar componente de carga
-    setLoading(true);
+    switchLoading(true);
 
     // Llamar a la función encargada de hacer el registro del usuario
     try {
@@ -51,22 +44,19 @@ const Signin = () => {
       // Limpiar formulario
       FormInstance.resetFields();
 
-      // Setear valores
-      setReady(true);
-
     } catch (error) {
-      console.log(error);
+      message.error(error.msg);
     }
 
     // Deshabilitar componente de carga
-    setLoading(false);
+    switchLoading(false);
   };
 
   /**
    *
    * @param {*} errorFields
-   * Muestra un mensaje de error en caso de que haya habido un problema con la ifnroamción
-   * del formulario
+   * Muestra un mensaje de error en caso de que haya habido un problema con la información
+   * del formulario.
    */
   const onFinishFailed = (errorFields) => {
     console.log(errorFields);
@@ -76,7 +66,6 @@ const Signin = () => {
   return (
     <div className="form-container">
       <h1>Iniciar Sesión</h1>
-      {message && <Alert />}
       <Form
         className="form-box"
         form={FormInstance}
@@ -112,7 +101,7 @@ const Signin = () => {
         <Form.Item >
           <div className="container-links">
             <Link to={ROUTES.SIGN_UP}>Aún no tienes cuenta? Crea una gratis</Link>
-            <Link>Olvidaste tu Contraseña?</Link>
+            <Link to={ROUTES.FORGOT_PASSWORD}>Olvidaste tu Contraseña?</Link>
           </div>
         </Form.Item>
         <Form.Item className="last-element">
@@ -121,7 +110,7 @@ const Signin = () => {
           </Button>
         </Form.Item>
       </Form>
-    </div >
+    </div>
   );
 }
 

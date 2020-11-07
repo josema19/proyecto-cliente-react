@@ -70,16 +70,12 @@
         transition: all 0.5s ease;
     }
 
-    .ant-menu-item a {
-        color: $white !important;
+    .ant-menu-item {
+        border: 0 !important;
     }
 
-    .ant-menu-item-selected {
+    .ant-menu-item a {
         color: $white !important;
-        border-bottom: 2px solid $white !important;
-    }
-    .ant-menu-item-active {
-        border-bottom: 2px solid $white !important;
     }
 
     .ant-divider {

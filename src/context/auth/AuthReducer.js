@@ -1,25 +1,23 @@
 // Importar types
 import {
   AUTHENTICATED_USER,
-  CLEAN_ALERTS,
+  CLEAN_MESSAGE,
   FAILED_AUTHENTICATED_USER,
-  FAILED_LOGIN,
-  FAILED_REGISTRATION,
   LOGOUT,
   SUCCESSFUL_LOGIN,
   SUCCESSFUL_REGISTRATION,
+  SUCCESSFUL_FORGOT_PASSWORD,
+  SWITCH_LOADING,
 } from '../../types';
 
 // Definir Reducer
 export default (state, action) => {
   switch (action.type) {
     case FAILED_AUTHENTICATED_USER:
-    case FAILED_REGISTRATION:
-    case FAILED_LOGIN:
     case SUCCESSFUL_REGISTRATION:
       return {
         ...state,
-        message: action.payload,
+        messageA: action.payload,
       }
     case SUCCESSFUL_LOGIN:
       localStorage.setItem('token', action.payload);
@@ -27,19 +25,22 @@ export default (state, action) => {
         ...state,
         token: action.payload,
         authenticated: true,
-        loading: false,
       }
-    case CLEAN_ALERTS:
+    case SUCCESSFUL_FORGOT_PASSWORD:
       return {
         ...state,
-        message: null,
+        messageA: action.payload,
+      }
+    case CLEAN_MESSAGE:
+      return {
+        ...state,
+        messageA: null,
       }
     case AUTHENTICATED_USER:
       return {
         ...state,
         user: action.payload,
         authenticated: true,
-        loading: false,
       }
     case LOGOUT:
       localStorage.removeItem('token');
@@ -49,6 +50,11 @@ export default (state, action) => {
         token: null,
         authenticated: null,
         loading: false,
+      }
+    case SWITCH_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
       }
     default:
       return state;
