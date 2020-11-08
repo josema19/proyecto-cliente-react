@@ -4,7 +4,7 @@ import { Row, Col, Form, Input, Button, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 // Importar context
-import ProductContext from '../../context/products/ProductContext';
+import RecipeContext from '../../context/recipes/RecipeContext';
 
 // Importar rutas
 import * as ROUTES from '../../constants/routes';
@@ -12,44 +12,31 @@ import * as ROUTES from '../../constants/routes';
 // Importar otros componentes
 import Dropzone from '../Dropzone';
 
-const EditProduct = () => {
+const CreateRecipe = () => {
   // Definir context
-  const productContext = useContext(ProductContext);
-  const { loading, messageP, product, editProduct, cleanMessage, switchLoading } = productContext;
+  const recipeContext = useContext(RecipeContext);
+  const { loading, messageR, createRecipe, cleanMessage, switchLoading } = recipeContext;
 
   // Definir nueva instancia de useHistory
   const history = useHistory();
 
   // Definir nueva instancia de useForm
-  const [ProductFormInstance] = Form.useForm();
+  const [RecipeFormInstance] = Form.useForm();
 
   // Definir effect para redireccionar
   useEffect(() => {
-    if (messageP && !loading) {
-      message.success(messageP);
-      history.push(ROUTES.PRODUCTS);
+    if (messageR && !loading) {
+      message.success(messageR);
+      history.push(ROUTES.RECIPES);
       cleanMessage();
     };
-  }, [messageP, loading, history, cleanMessage]);
-
-  // Definir effect para setear los valores del formulario
-  useEffect(() => {
-    if (product) {
-      ProductFormInstance.setFieldsValue({
-        name: product.name,
-        code: product.code,
-        price: product.price.toString(),
-        quantityAvailable: product.quantityAvailable,
-        description: product.description,
-      });
-    };
-  }, [product, ProductFormInstance]);
+  }, [messageR, loading, history, cleanMessage]);
 
   /**
    *
    * @param {*} errorFields
    * Muestra un mensaje de error en caso de que haya habido un problema con la información
-   * del formulario
+   * del formulario.
    */
   const onFinishFailed = (errorFields) => {
     console.log(errorFields);
@@ -60,12 +47,12 @@ const EditProduct = () => {
     // Habilitar componente de carga
     switchLoading(true);
 
-    // Llamar a la función encargada de hacer el registro del usuario
+    // Llamar a la función encargada de crear la receta
     try {
-      await editProduct(values);
+      await createRecipe(values);
 
       // Limpiar formulario
-      ProductFormInstance.resetFields();
+      RecipeFormInstance.resetFields();
     } catch (error) {
       message.error(error.msg);
     };
@@ -77,17 +64,17 @@ const EditProduct = () => {
   // Renderizar componente
   return (
     <div className="form-internal-container">
-      <h1>Editar Producto</h1>
+      <h1>Crear Nueva Receta</h1>
       <Form
-        form={ProductFormInstance}
-        name="ProductForm"
+        form={RecipeFormInstance}
+        name="RecipeForm"
         layout="vertical"
         className="form-box"
         onFinish={values => onFinish(values)}
         onFinishFailed={onFinishFailed}
       >
         <Row gutter={(0, 12)}>
-          <Col span="12">
+          <Col span="24">
             <Form.Item
               label="Nombre"
               name="name"
@@ -103,54 +90,26 @@ const EditProduct = () => {
           </Col>
           <Col span="12">
             <Form.Item
-              label="Código"
-              name="code"
+              label="Ingredientes"
+              name="ingredients"
               rules={[
                 {
                   required: true,
-                  message: 'Por favor coloque un código'
+                  message: 'Por favor coloque la información de los ingradientes'
                 },
               ]}
             >
-              <Input disabled="true" />
-            </Form.Item>
-          </Col>
-          <Col span="12">
-            <Form.Item
-              label="Precio"
-              name="price"
-              rules={[
-                {
-                  required: true,
-                  message: 'Por favor coloque un precio'
-                }
-              ]}
-            >
               <Input />
             </Form.Item>
           </Col>
           <Col span="12">
             <Form.Item
-              label="Cantidad Disponible"
-              name="quantityAvailable"
+              label="Preparación"
+              name="preparation"
               rules={[
                 {
                   required: true,
-                  message: 'Por favor coloque una cantidad disponible en inventario'
-                }
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span="24">
-            <Form.Item
-              label="Descripción"
-              name="description"
-              rules={[
-                {
-                  required: true,
-                  message: 'Por favor coloque una descripción'
+                  message: 'Por favor coloque una descripción de la preparación'
                 }
               ]}
             >
@@ -161,13 +120,13 @@ const EditProduct = () => {
             <Form.Item
               label="Imagen"
             >
-              <Dropzone formCall="product" />
+              <Dropzone formCall="recipe" />
             </Form.Item>
           </Col>
           <Col span="24">
             <Form.Item className="last-element">
               <Button type="primary" htmlType="submit" loading={loading}>
-                Editar Producto
+                Crear Receta
             </Button>
             </Form.Item>
           </Col>
@@ -177,4 +136,4 @@ const EditProduct = () => {
   );
 }
 
-export default EditProduct;
+export default CreateRecipe;

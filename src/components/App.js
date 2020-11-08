@@ -1,5 +1,5 @@
 // Importar librerías
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Layout } from 'antd';
 
@@ -14,7 +14,6 @@ import Home from '../components/Home';
 import Signin from '../components/Session/Signin';
 import Signup from '../components/Session/Signup';
 import ForgotPassword from '../components/Session/ForgotPassword';
-import PrivateRoute from './PrivateRoute';
 import Dashboard from './Dashboard';
 import Orders from './Orders';
 import Recipes from './Recipes';
@@ -26,6 +25,7 @@ import Footer from '../components/Layout/Footer';
 import AuthState from '../context/auth/AuthState';
 import UserState from '../context/users/UserState';
 import ProductState from '../context/products/ProductState';
+import RecipeState from '../context/recipes/RecipeState';
 
 // Importar context
 import AuthContext from '../context/auth/AuthContext';
@@ -35,50 +35,61 @@ const { Content } = Layout;
 
 // Definir componentes generales
 const GeneralComponents = () => {
-    // Definir context
-    const authContext = useContext(AuthContext);
-    const { authenticated } = authContext;
+  // Definir context
+  const authContext = useContext(AuthContext);
+  const { authenticated, authenticatedUser } = authContext;
 
-    // Renderizar componente
-    return (
-        <>
-            <Sidebar />
-            <Header />
-            <Layout>
-                <CustomHeader />
-                <Content className={authenticated ? "main-internal-container" : "main-container"}>
-                    <Switch>
-                        <Route exact path={ROUTES.HOME} component={Home} />
-                        <Route path={ROUTES.SIGN_IN} component={Signin} />
-                        <Route path={ROUTES.SIGN_UP} component={Signup} />
-                        <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
-                        <PrivateRoute path={ROUTES.DASHBOARD} component={Dashboard} />
-                        <PrivateRoute path={ROUTES.ORDERS} component={Orders} />
-                        <PrivateRoute path={ROUTES.RECIPES} component={Recipes} />
-                        <PrivateRoute path={ROUTES.PRODUCTS} component={Products} />
-                        <PrivateRoute path={ROUTES.USERS} component={Users} />
-                    </Switch>
-                </Content>
-            </Layout>
-            <Footer />
-        </>
-    )
+  // Definir effect para obtener la información del usuario autenticado
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      authenticatedUser();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Renderizar componente
+  return (
+    <>
+      <Sidebar />
+      <Header />
+      <Layout>
+        <CustomHeader />
+        <Content className={authenticated ? "main-internal-container" : "main-container"}>
+          <Switch>
+            <Route exact path={ROUTES.HOME} component={Home} />
+            <Route path={ROUTES.SIGN_IN} component={Signin} />
+            <Route path={ROUTES.SIGN_UP} component={Signup} />
+            <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
+            <Route path={ROUTES.DASHBOARD} component={Dashboard} />
+            <Route exact path={ROUTES.ORDERS} component={Orders} />
+            <Route path={ROUTES.RECIPES} component={Recipes} />
+            <Route path={ROUTES.PRODUCTS} component={Products} />
+            <Route path={ROUTES.USERS} component={Users} />
+          </Switch>
+        </Content>
+      </Layout>
+      <Footer />
+    </>
+  )
 };
 
 const App = () => (
-    <AuthState>
-        <ProductState>
-            <UserState>
-                <Router>
-                    <Layout>
-                        <Switch>
-                            <Route path="/" component={GeneralComponents} />
-                        </Switch>
-                    </Layout>
-                </Router>
-            </UserState>
-        </ProductState>
-    </AuthState>
+  <AuthState>
+    <RecipeState>
+      <ProductState>
+        <UserState>
+          <Router>
+            <Layout>
+              <Switch>
+                <Route path="/" component={GeneralComponents} />
+              </Switch>
+            </Layout>
+          </Router>
+        </UserState>
+      </ProductState>
+    </RecipeState>
+  </AuthState>
 )
 
 export default App;

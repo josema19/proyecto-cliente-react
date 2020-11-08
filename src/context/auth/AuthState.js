@@ -53,9 +53,10 @@ const AuthState = ({ children }) => {
         payload: response.data.user
       });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: FAILED_AUTHENTICATED_USER,
-        payload: error.response.data.msg
+        payload: error.response.data.msg,
       });
     };
   };
@@ -100,6 +101,7 @@ const AuthState = ({ children }) => {
    * Permite a un usuario loguearse dentro de la aplicación
    */
   const login = async (values) => {
+    console.log(values);
     // Intentar obtener datos de la bd
     try {
       // Enviar a la BD

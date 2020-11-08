@@ -2,57 +2,57 @@
 import React, { useReducer } from 'react';
 
 // Importar context
-import ProductContext from './ProductContext';
-import ProductReducer from './ProductReducer';
+import RecipeContext from './RecipeContext';
+import RecipeReducer from './RecipeReducer';
 
 // Importar types
 import {
   CLEAN_MESSAGE,
-  FAILED_GET_PRODUCT,
-  FAILED_GET_PRODUCTS,
-  SELECTED_PRODUCT,
-  SUCCESSFUL_GET_PRODUCT,
-  SUCCESSFUL_GET_PRODUCTS,
+  FAILED_GET_RECIPE,
+  FAILED_GET_RECIPES,
+  SELECTED_RECIPE,
+  SUCCESSFUL_GET_RECIPE,
+  SUCCESSFUL_GET_RECIPES,
   SUCCESSFUL_UPLOAD_FILE,
-  SUCCESSFUL_CREATE_PRODUCT,
-  SUCCESSFUL_EDIT_PRODUCT,
-  SUCCESSFUL_DELETE_PRODUCT,
+  SUCCESSFUL_CREATE_RECIPE,
+  SUCCESSFUL_EDIT_RECIPE,
+  SUCCESSFUL_DELETE_RECIPE,
   SWITCH_LOADING,
 } from '../../types';
 
 // Importar configuraciones
 import axiosClient from '../../config/axios';
 
-const ProductState = ({ children }) => {
+const RecipeState = ({ children }) => {
   // Definir state inicial
   const initialState = {
     image: '',
     loading: true,
-    messageP: null,
-    products: [],
-    product: null,
+    messageR: null,
+    recipes: [],
+    recipe: null,
   };
 
   // Definir reducer
-  const [state, dispatch] = useReducer(ProductReducer, initialState);
+  const [state, dispatch] = useReducer(RecipeReducer, initialState);
 
   // Definir funciones
   /**
    *
    * @param {*} values
-   * Crea un nuevo producto en la BD.
+   * Crea una nueva receta en la BD.
    */
-  const createProduct = async (values) => {
+  const createRecipe = async (values) => {
     // Intentar almacenar la información en la BD
     try {
       // Agregar información de la imagen
       values = { ...values, image: state.image }
 
-      const response = await axiosClient.post('/api/products', values);
+      const response = await axiosClient.post('/api/recipes', values);
 
       // Actualizar state del mensaje
       dispatch({
-        type: SUCCESSFUL_CREATE_PRODUCT,
+        type: SUCCESSFUL_CREATE_RECIPE,
         payload: response.data.msg,
       });
 
@@ -73,18 +73,18 @@ const ProductState = ({ children }) => {
   };
 
   /**
-   * Elimina la información de un producto de la BD.
+   * Elimina la información de una receta de la BD.
    */
-  const deleteProduct = async () => {
+  const deleteRecipe = async () => {
     try {
-      const response = await axiosClient.delete(`/api/products/${state.product.code}`);
+      const response = await axiosClient.delete(`/api/recipes/${state.recipe.id}`);
 
       // Actualizar state del mensaje
       dispatch({
-        type: SUCCESSFUL_DELETE_PRODUCT,
+        type: SUCCESSFUL_DELETE_RECIPE,
         payload: {
           message: response.data.msg,
-          id: state.product.id,
+          id: state.recipe.id,
         },
       });
 
@@ -98,18 +98,18 @@ const ProductState = ({ children }) => {
   /**
    *
    * @param {*} values
-   * Edita la información de un producto.
+   * Edita la información de una receta.
    */
-  const editProduct = async (values) => {
+  const editRecipe = async (values) => {
     try {
       // Agregar información de la imagen
       values = { ...values, image: state.image }
 
-      const response = await axiosClient.put(`/api/products/${state.product.code}`, values);
+      const response = await axiosClient.put(`/api/recipes/${state.recipe.id}`, values);
 
       // Actualizar state del mensaje
       dispatch({
-        type: SUCCESSFUL_EDIT_PRODUCT,
+        type: SUCCESSFUL_EDIT_RECIPE,
         payload: response.data.msg,
       });
 
@@ -122,43 +122,43 @@ const ProductState = ({ children }) => {
 
   /**
    *
-   * @param {*} code
-   * Obtiene la información de un producto.
+   * @param {*} id
+   * Obtiene la información de una receta.
    */
-  const getProduct = async (code) => {
+  const getRecipe = async (id) => {
     try {
       // Obtener respuesta
-      const response = await axiosClient.get(`/api/products/${code}`);
+      const response = await axiosClient.get(`/api/recipes/${id}`);
 
       // Actualizar información del state
       dispatch({
-        type: SUCCESSFUL_GET_PRODUCT,
-        payload: response.data.product,
+        type: SUCCESSFUL_GET_RECIPE,
+        payload: response.data.recipe
       });
     } catch (error) {
       dispatch({
-        type: FAILED_GET_PRODUCT,
-        payload: error.response.data.msg,
+        type: FAILED_GET_RECIPE,
+        payload: error.response.data.msg
       });
     };
   };
 
   /**
-   * Obtiene la información de todos los productos de la aplicación.
+   * Obtiene la información de todos las recetas de la aplicación.
    */
-  const getProducts = async () => {
+  const getRecipes = async () => {
     try {
       // Obtener respuesta
-      const response = await axiosClient.get('/api/products');
+      const response = await axiosClient.get('/api/recipes');
 
       // Actualizar información del state
       dispatch({
-        type: SUCCESSFUL_GET_PRODUCTS,
-        payload: response.data.products
+        type: SUCCESSFUL_GET_RECIPES,
+        payload: response.data.recipes
       });
     } catch (error) {
       dispatch({
-        type: FAILED_GET_PRODUCTS,
+        type: FAILED_GET_RECIPES,
         payload: error.response.data.msg
       });
     };
@@ -179,11 +179,11 @@ const ProductState = ({ children }) => {
   /**
    *
    * @param {*} item
-   * Actualiza el state con el producto seleccionado.
+   * Actualiza el state con la receta seleccionada seleccionado.
    */
-  const selectedProduct = (item) => {
+  const selectedRecipe = (item) => {
     dispatch({
-      type: SELECTED_PRODUCT,
+      type: SELECTED_RECIPE,
       payload: item,
     });
   };
@@ -192,9 +192,9 @@ const ProductState = ({ children }) => {
    *
    * @param {*} formData
    * @param {*} fileName
-   * Sube una imagen del producto al servidor.
+   * Sube una imagen de la receta al servidor.
    */
-  const uploadFileP = async (formData) => {
+  const uploadFileR = async (formData) => {
     try {
       const response = await axiosClient.post('/api/files', formData);
       dispatch({
@@ -205,32 +205,32 @@ const ProductState = ({ children }) => {
     } catch (error) {
       // Enviar mensaje de falla
       return Promise.reject({ msg: error.response.data.msg });
-    }
+    };
   };
 
   // Renderizar componente
   return (
-    <ProductContext.Provider
+    <RecipeContext.Provider
       value={{
         image: state.image,
         loading: state.loading,
-        messageP: state.messageP,
-        products: state.products,
-        product: state.product,
-        createProduct,
+        messageR: state.messageR,
+        recipes: state.recipes,
+        recipe: state.recipe,
+        createRecipe,
         cleanMessage,
-        deleteProduct,
-        editProduct,
-        getProduct,
-        getProducts,
+        deleteRecipe,
+        editRecipe,
+        getRecipe,
+        getRecipes,
         switchLoading,
-        selectedProduct,
-        uploadFileP,
+        selectedRecipe,
+        uploadFileR,
       }}
     >
       {children}
-    </ProductContext.Provider>
+    </RecipeContext.Provider>
   );
 }
 
-export default ProductState;
+export default RecipeState;

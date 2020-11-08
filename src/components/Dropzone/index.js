@@ -5,15 +5,20 @@ import { Button, message } from 'antd';
 
 // Importar context
 import ProductContext from '../../context/products/ProductContext';
+import RecipeContext from '../../context/recipes/RecipeContext';
 
-const Dropzone = () => {
-  // Definir context
+const Dropzone = ({ formCall }) => {
+  // Definir context de productos
   const productContext = useContext(ProductContext);
-  const { uploadFile } = productContext;
+  const { uploadFileP } = productContext;
+
+  // Definir context de recetas
+  const recipeContext = useContext(RecipeContext)
+  const { uploadFileR } = recipeContext;
 
   // Definir Funciones
   const onDropRejected = () => {
-    message.error('No se pudo subir el archivo porque el tamaño máximo permitido es de 1MB. Obtén una cuenta para subir archivos más grandes');
+    message.error('No se pudo subir el archivo porque el tamaño máximo permitido es de 1MB');
   };
 
   const onDropAccepted = useCallback(async acceptedFiles => {
@@ -22,7 +27,16 @@ const Dropzone = () => {
     formData.append('file', acceptedFiles[0]);
 
     // Llamar función del State
-    uploadFile(formData, acceptedFiles[0]['path']);
+    try {
+      if (formCall === 'product') {
+        uploadFileP(formData);
+      } else if (formCall === 'recipe') {
+        uploadFileR(formData);
+      };
+    } catch (error) {
+      message.error(error.msg);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Extraer contenido de dropzone
@@ -42,8 +56,6 @@ const Dropzone = () => {
       <p>{file.path} {(file.size / Math.pow(1024, 2)).toFixed(2)} MB</p>
     </li>
   ));
-
-  console.log(acceptedFiles);
 
   // Renderizar componente
   return (
