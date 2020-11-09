@@ -61,7 +61,7 @@ const Signup = () => {
 
   // Renderizar componente
   return (
-    <div className="form-container">
+    <div className="form-container margin-header-footer">
       <h1>Registrarse</h1>
       <Form
         form={FormInstance}

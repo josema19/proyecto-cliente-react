@@ -12,6 +12,9 @@ import * as ROUTES from '../../constants/routes';
 // Importar otros componentes
 import Dropzone from '../Dropzone';
 
+// Importar subcomponente de TextArea
+const { TextArea } = Input;
+
 const EditeRecipe = () => {
   // Definir context
   const recipeContext = useContext(RecipeContext);
@@ -42,6 +45,12 @@ const EditeRecipe = () => {
       });
     };
   }, [recipe, RecipeFormInstance]);
+
+  // Definir effect para setear valor de loading
+  useEffect(() => {
+    switchLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    *
@@ -74,7 +83,7 @@ const EditeRecipe = () => {
 
   // Renderizar componente
   return (
-    <div className="form-internal-container">
+    <div className="form-container">
       <h1>Editar Receta</h1>
       <Form
         form={RecipeFormInstance}
@@ -99,7 +108,7 @@ const EditeRecipe = () => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span="12">
+          <Col span="24">
             <Form.Item
               label="Ingredientes"
               name="ingredients"
@@ -110,10 +119,10 @@ const EditeRecipe = () => {
                 },
               ]}
             >
-              <Input />
+              <TextArea />
             </Form.Item>
           </Col>
-          <Col span="12">
+          <Col span="24">
             <Form.Item
               label="Preparación"
               name="preparation"
@@ -124,7 +133,7 @@ const EditeRecipe = () => {
                 }
               ]}
             >
-              <Input />
+              <TextArea />
             </Form.Item>
           </Col>
           <Col span="24">

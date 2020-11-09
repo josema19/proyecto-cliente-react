@@ -101,7 +101,6 @@ const AuthState = ({ children }) => {
    * Permite a un usuario loguearse dentro de la aplicación
    */
   const login = async (values) => {
-    console.log(values);
     // Intentar obtener datos de la bd
     try {
       // Enviar a la BD

@@ -6,7 +6,11 @@ import UserContext from './UserContext';
 import UserReducer from './UserReducer';
 
 // Importar types
-import { FAILED_GET_USERS, SUCCESSFUL_GET_USERS } from '../../types';
+import {
+  CLEAN_MESSAGE,
+  FAILED_GET_USERS,
+  SUCCESSFUL_GET_USERS
+} from '../../types';
 
 // Importar configuraciones
 import axiosClient from '../../config/axios';
@@ -14,7 +18,7 @@ import axiosClient from '../../config/axios';
 const UserState = ({ children }) => {
   // Definir state inicial
   const initialState = {
-    message: null,
+    messageU: null,
     users: [],
     loading: true,
   };
@@ -23,6 +27,15 @@ const UserState = ({ children }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState);
 
   // Definir funciones
+  /**
+   * Cambia el estado de message a null.
+   */
+  const cleanMessage = () => {
+    dispatch({
+      type: CLEAN_MESSAGE,
+    });
+  };
+
   /**
    * Obtiene la información de todos los usuarios de la aplicación.
    */
@@ -48,15 +61,16 @@ const UserState = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        users: state.users,
+        messageU: state.messageU,
         loading: state.loading,
+        users: state.users,
+        cleanMessage,
         getUsers
       }}
     >
       {children}
     </UserContext.Provider>
   )
-
 }
 
 export default UserState;

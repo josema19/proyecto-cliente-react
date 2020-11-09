@@ -5,7 +5,7 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
-import { Avatar, Divider, Table, Button, Space, message } from 'antd';
+import { Avatar, Divider, Table, Button, Space, Tooltip, message } from 'antd';
 import { Link } from 'react-router-dom';
 
 // Importar rutas
@@ -61,11 +61,37 @@ const RecipesList = () => {
   // Definir columnas de la tabla
   const columns = [
     {
-      title: 'RECETA',
+      title: 'NOMBRE',
       dataIndex: 'name',
       key: 'name',
       render: (_, record) => record.name,
       sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      title: 'INGREDIENTES',
+      dataIndex: 'ingredients',
+      key: 'ingredients',
+      render: (_, record) => {
+        return (
+          <Tooltip title={record.ingredients}>
+            <p className="summary">{record.ingredients}</p>
+          </Tooltip>
+        );
+      },
+      sorter: (a, b) => a.ingredients.localeCompare(b.ingredients),
+    },
+    {
+      title: 'PREPARACIÓN',
+      dataIndex: 'preparation',
+      key: 'preparation',
+      render: (_, record) => {
+        return (
+          <Tooltip title={record.preparation}>
+            <p className="summary">{record.preparation}</p>
+          </Tooltip>
+        );
+      },
+      sorter: (a, b) => a.ingredients.localeCompare(b.ingredients),
     },
     {
       title: 'IMAGEN',

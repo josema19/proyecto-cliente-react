@@ -12,6 +12,8 @@
 @import "../components//Users/users.scss";
 @import "../components//Products/products.scss";
 @import "../components/Dropzone/dropzone.scss";
+@import "../components/Recipes/recipes.scss";
+@import "../components/Home/home.scss";
 
 /* Definir Estilos Globales */
 html {
@@ -26,11 +28,6 @@ html {
 
 body {
     font-family: "Roboto";
-
-    // // border: 10px solid yellow !important;
-    // background-color: $gray;
-    // margin: 0;
-    // height: 1200px;
 }
 
 .main-container {

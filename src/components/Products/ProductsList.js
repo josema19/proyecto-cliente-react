@@ -62,7 +62,7 @@ const ProductsList = () => {
   // Definir columnas de la tabla
   const columns = [
     {
-      title: 'PRODUCTO',
+      title: 'NOMBRE',
       dataIndex: 'name',
       key: 'name',
       render: (_, record) => record.name,

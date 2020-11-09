@@ -60,11 +60,11 @@ const Signin = () => {
    */
   const onFinishFailed = (errorFields) => {
     console.log(errorFields);
-  }
+  };
 
   // Renderizar componente
   return (
-    <div className="form-container">
+    <div className="form-container margin-header-footer">
       <h1>Iniciar Sesión</h1>
       <Form
         className="form-box"

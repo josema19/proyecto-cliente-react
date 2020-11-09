@@ -66,7 +66,7 @@ const ForgotPassword = () => {
 
   // Renderizar componente
   return (
-    <div className="form-container">
+    <div className="form-container margin-header-footer">
       <h1>Recuperar Contraseña</h1>
       <Form
         className="form-box"

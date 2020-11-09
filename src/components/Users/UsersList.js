@@ -1,9 +1,6 @@
 // Importar librerías
 import React, { useEffect, useContext } from 'react';
-import { Divider, Table } from 'antd';
-
-// Importar otros componentes
-import Alert from '../Alert'
+import { Divider, Table, message } from 'antd';
 
 // Importar context
 import UserContext from '../../context/users/UserContext';
@@ -17,11 +14,15 @@ const showRoles = {
 const UsersList = () => {
   // Definir context
   const userContext = useContext(UserContext);
-  const { loading, users, message, getUsers } = userContext;
+  const { loading, users, messageU, cleanMessage, getUsers } = userContext;
 
   // Definir effect para obtener la información de los usuarios
   useEffect(() => {
     getUsers();
+    if (messageU) {
+      message.error(messageU);
+      cleanMessage();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -75,7 +76,6 @@ const UsersList = () => {
       </div>
       <Divider />
       <div className="users-list-content">
-        {message && <Alert />}
         <Table
           loading={loading}
           columns={columns}

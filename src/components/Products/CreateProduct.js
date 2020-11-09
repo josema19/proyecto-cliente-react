@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useContext, useEffect } from 'react';
-import { Row, Col, Form, Input, Button, message } from 'antd';
+import { Row, Col, Form, Input, InputNumber, Button, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 // Importar context
@@ -12,6 +12,9 @@ import * as ROUTES from '../../constants/routes';
 // Importar otros componentes
 import Dropzone from '../Dropzone';
 
+// Importar subcomponente de TextArea
+const { TextArea } = Input;
+
 const CreateProduct = () => {
   // Definir context
   const productContext = useContext(ProductContext);
@@ -21,7 +24,7 @@ const CreateProduct = () => {
   const history = useHistory();
 
   // Definir nueva instancia de useForm
-  const [ProductFormInstance] = Form.useForm();
+  const [productFormInstance] = Form.useForm();
 
   // Definir effect para redireccionar
   useEffect(() => {
@@ -31,6 +34,12 @@ const CreateProduct = () => {
       cleanMessage();
     };
   }, [messageP, loading, history, cleanMessage]);
+
+  // Definir effect para setear valor de loading
+  useEffect(() => {
+    switchLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    *
@@ -52,7 +61,7 @@ const CreateProduct = () => {
       await createProduct(values);
 
       // Limpiar formulario
-      ProductFormInstance.resetFields();
+      productFormInstance.resetFields();
     } catch (error) {
       message.error(error.msg);
     };
@@ -63,10 +72,10 @@ const CreateProduct = () => {
 
   // Renderizar componente
   return (
-    <div className="form-internal-container">
+    <div className="form-container">
       <h1>Crear Nuevo Producto</h1>
       <Form
-        form={ProductFormInstance}
+        form={productFormInstance}
         name="ProductForm"
         layout="vertical"
         className="form-box"
@@ -113,7 +122,12 @@ const CreateProduct = () => {
                 }
               ]}
             >
-              <Input />
+              <InputNumber
+                min="1"
+                step="100000"
+                style={{ width: '100%' }}
+                parser={(value) => value.replace(/([^0-9])/g, '') || 1}
+              />
             </Form.Item>
           </Col>
           <Col span="12">
@@ -127,7 +141,13 @@ const CreateProduct = () => {
                 }
               ]}
             >
-              <Input />
+              <InputNumber
+                min="1"
+                step="100"
+                precision={0}
+                style={{ width: '100%' }}
+                parser={(value) => value.replace(/([^0-9])/g, '') || 1}
+              />
             </Form.Item>
           </Col>
           <Col span="24">
@@ -141,7 +161,7 @@ const CreateProduct = () => {
                 }
               ]}
             >
-              <Input />
+              <TextArea />
             </Form.Item>
           </Col>
           <Col span="24">

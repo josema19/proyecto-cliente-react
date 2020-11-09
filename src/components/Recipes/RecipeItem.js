@@ -1,10 +1,14 @@
 // Importar librerías
 import React, { useContext, useEffect } from 'react';
-import { Card, Divider, message } from 'antd';
+import { Card, Divider, Button, message } from 'antd';
 import { useLocation } from 'react-router-dom';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
 // Importar context
 import RecipeContext from '../../context/recipes/RecipeContext';
+
+// Importar rutas
+import * as ROUTES from '../../constants/routes';
 
 // Extraer subcomponente Meta
 const { Meta } = Card;
@@ -32,13 +36,21 @@ const RecipeItem = () => {
   // Renderizar componente
   return (
     recipe && (
-      <Card title={recipe.name}>
-        <Card cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
-          <Meta title="Ingredientes" description={recipe.ingredients} />
-          <Divider />
-          <Meta title="Preparación" description={recipe.preparation} />
+      <>
+        <div>
+          <Button type="link" href={ROUTES.RECIPES}>
+            <ArrowLeftOutlined />
+            Listado de Recetas
+          </Button>
+        </div>
+        <Card title={recipe.name}>
+          <Card cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
+            <Meta title="Ingredientes" description={recipe.ingredients} />
+            <Divider />
+            <Meta title="Preparación" description={recipe.preparation} />
+          </Card>
         </Card>
-      </Card>
+      </>
     )
   );
 }

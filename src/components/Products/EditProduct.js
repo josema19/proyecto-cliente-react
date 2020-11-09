@@ -12,6 +12,9 @@ import * as ROUTES from '../../constants/routes';
 // Importar otros componentes
 import Dropzone from '../Dropzone';
 
+// Importar subcomponente de TextArea
+const { TextArea } = Input;
+
 const EditProduct = () => {
   // Definir context
   const productContext = useContext(ProductContext);
@@ -38,12 +41,18 @@ const EditProduct = () => {
       ProductFormInstance.setFieldsValue({
         name: product.name,
         code: product.code,
-        price: product.price.toString(),
+        price: product.price,
         quantityAvailable: product.quantityAvailable,
         description: product.description,
       });
     };
   }, [product, ProductFormInstance]);
+
+  // Definir effect para setear valor de loading
+  useEffect(() => {
+    switchLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    *
@@ -76,7 +85,7 @@ const EditProduct = () => {
 
   // Renderizar componente
   return (
-    <div className="form-internal-container">
+    <div className="form-container">
       <h1>Editar Producto</h1>
       <Form
         form={ProductFormInstance}
@@ -112,7 +121,7 @@ const EditProduct = () => {
                 },
               ]}
             >
-              <Input disabled="true" />
+              <Input disabled={true} />
             </Form.Item>
           </Col>
           <Col span="12">
@@ -154,7 +163,7 @@ const EditProduct = () => {
                 }
               ]}
             >
-              <Input />
+              <TextArea />
             </Form.Item>
           </Col>
           <Col span="24">

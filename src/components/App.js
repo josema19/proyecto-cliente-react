@@ -55,7 +55,7 @@ const GeneralComponents = () => {
       <Header />
       <Layout>
         <CustomHeader />
-        <Content className={authenticated ? "main-internal-container" : "main-container"}>
+        <Content className={authenticated ? "main-internal-container" : ""}>
           <Switch>
             <Route exact path={ROUTES.HOME} component={Home} />
             <Route path={ROUTES.SIGN_IN} component={Signin} />

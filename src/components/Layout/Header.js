@@ -20,27 +20,27 @@ const Header = () => {
       <div className="navigation-background">
         <div className="main-container navigation-container">
           <div className="navigation">
-            <Link to={{ pathname: ROUTES.HOME }}>
+            <Link to={{ pathname: ROUTES.HOME, scrollTo: 'landing' }}>
               <img src="logo192.png" alt="Casa Torta" className="logo" />
             </Link>
             <Menu mode="horizontal" className="menu">
               <Menu.Item key="products">
-                <Link to={{ pathname: ROUTES.HOME }} className="navigation-text">
+                <Link to={{ pathname: ROUTES.HOME, scrollTo: 'productshome' }} className="navigation-text">
                   Productos
               </Link>
               </Menu.Item>
               <Menu.Item key="us">
-                <Link to={{ pathname: ROUTES.HOME }} className="navigation-text">
+                <Link to={{ pathname: ROUTES.HOME, scrollTo: 'us' }} className="navigation-text">
                   Nosotros
               </Link>
               </Menu.Item>
               <Menu.Item key="recipes">
-                <Link to={{ pathname: ROUTES.HOME }} className="navigation-text">
+                <Link to={{ pathname: ROUTES.HOME, scrollTo: 'recipeshome' }} className="navigation-text">
                   Recetas
               </Link>
               </Menu.Item>
               <Menu.Item key="contacts">
-                <Link to={{ pathname: ROUTES.HOME }} className="navigation-text">
+                <Link to={{ pathname: ROUTES.HOME, scrollTo: 'contact' }} className="navigation-text">
                   Contáctanos
               </Link>
               </Menu.Item>

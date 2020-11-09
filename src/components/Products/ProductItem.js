@@ -1,10 +1,14 @@
 // Importar librerías
 import React, { useContext, useEffect } from 'react';
-import { Card, Divider, message } from 'antd';
+import { Card, Divider, Button, message } from 'antd';
 import { useLocation } from 'react-router-dom';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
 // Importar context
 import ProductContext from '../../context/products/ProductContext';
+
+// Importar rutas
+import * as ROUTES from '../../constants/routes';
 
 // Extraer subcomponente Meta
 const { Meta } = Card;
@@ -32,17 +36,25 @@ const ProductItem = () => {
   // Renderizar componente
   return (
     product && (
-      <Card title={product.name}>
-        <Card cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
-          <Meta title="Código" description={product.code} />
-          <Divider />
-          <Meta title="Descripción" description={product.description} />
-          <Divider />
-          <Meta title="Unidades Disponibles" description={product.quantityAvailable} />
-          <Divider />
-          <Meta title="Precio Actual" description={product.price} />
+      <>
+        <div>
+          <Button type="link" href={ROUTES.PRODUCTS}>
+            <ArrowLeftOutlined />
+            Listado de Productos
+          </Button>
+        </div>
+        <Card title={product.name}>
+          <Card cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
+            <Meta title="Código" description={product.code} />
+            <Divider />
+            <Meta title="Descripción" description={product.description} />
+            <Divider />
+            <Meta title="Unidades Disponibles" description={product.quantityAvailable} />
+            <Divider />
+            <Meta title="Precio Actual" description={product.price} />
+          </Card>
         </Card>
-      </Card>
+      </>
     )
   );
 }

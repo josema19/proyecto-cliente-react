@@ -27,7 +27,7 @@ const ProductState = ({ children }) => {
   // Definir state inicial
   const initialState = {
     image: '',
-    loading: true,
+    loading: false,
     messageP: null,
     products: [],
     product: null,

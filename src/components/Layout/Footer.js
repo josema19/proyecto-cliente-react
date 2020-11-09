@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Layout } from 'antd';
 
 // Obtener imagen del logo
@@ -20,18 +20,18 @@ const footerData = [
   {
     title: 'Navegación',
     items: [
-      <NavLink exact to={{ pathname: ROUTES.HOME }}>
+      <Link to={{ pathname: ROUTES.HOME, scrollTo: 'productshome' }}>
         Productos
-        </NavLink>,
-      <NavLink exact to={{ pathname: ROUTES.HOME }}>
+      </Link>,
+      <Link to={{ pathname: ROUTES.HOME, scrollTo: 'us' }}>
         Nosotros
-        </NavLink>,
-      <NavLink exact to={{ pathname: ROUTES.HOME }}>
+      </Link>,
+      <Link to={{ pathname: ROUTES.HOME, scrollTo: 'recipeshome' }}>
         Recetas
-      </NavLink>,
-      <NavLink exact to={{ pathname: ROUTES.HOME }}>
+      </Link>,
+      <Link to={{ pathname: ROUTES.HOME, scrollTo: 'contact' }}>
         Contáctanos
-      </NavLink>
+      </Link>
     ]
   },
   {
@@ -63,7 +63,9 @@ const FooterLayout = () => {
   return (
     !authenticated && !user && (
       <Footer className="footer">
-        <CasaTortaLogo className="footer-logo" />
+        <Link to={{ pathname: ROUTES.HOME, scrollTo: 'landing' }}>
+          <CasaTortaLogo className="footer-logo" />
+        </Link>
         <div className="footer-container">
           {footerData.map((data, index) => (
             <div className="footer-content" key={index}>

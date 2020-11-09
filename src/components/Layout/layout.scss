@@ -89,7 +89,6 @@
     background-color: $aquamarine;
     display: flex;
     justify-content: space-evenly;
-    margin-top: 35px;
     padding: 20px;
 
     .footer-logo {
@@ -131,7 +130,8 @@
 /* Sider */
 .side-menu {
     background-color: $aquamarine;
-    height: 100vh;
+    min-height: 100vh;
+    max-height: 150vh;
     max-width: 368px !important;
     min-width: 280px !important;
     width: 20% !important;
