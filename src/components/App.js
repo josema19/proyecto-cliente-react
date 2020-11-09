@@ -16,6 +16,7 @@ import Signup from '../components/Session/Signup';
 import ForgotPassword from '../components/Session/ForgotPassword';
 import Dashboard from './Dashboard';
 import Orders from './Orders';
+import Profile from './Profile';
 import Recipes from './Recipes';
 import Products from './Products';
 import Users from './Users';
@@ -62,7 +63,8 @@ const GeneralComponents = () => {
             <Route path={ROUTES.SIGN_UP} component={Signup} />
             <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
             <Route path={ROUTES.DASHBOARD} component={Dashboard} />
-            <Route exact path={ROUTES.ORDERS} component={Orders} />
+            <Route path={ROUTES.ORDERS} component={Orders} />
+            <Route path={ROUTES.PROFILE} component={Profile} />
             <Route path={ROUTES.RECIPES} component={Recipes} />
             <Route path={ROUTES.PRODUCTS} component={Products} />
             <Route path={ROUTES.USERS} component={Users} />

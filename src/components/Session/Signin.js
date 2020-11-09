@@ -96,7 +96,7 @@ const Signin = () => {
             }
           ]}
         >
-          <Input />
+          <Input.Password />
         </Form.Item>
         <Form.Item >
           <div className="container-links">

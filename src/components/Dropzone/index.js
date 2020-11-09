@@ -4,17 +4,22 @@ import { useDropzone } from 'react-dropzone';
 import { Button, message } from 'antd';
 
 // Importar context
-import ProductContext from '../../context/products/ProductContext';
+import AuthContext from '../../context/auth/AuthContext';
 import RecipeContext from '../../context/recipes/RecipeContext';
+import ProductContext from '../../context/products/ProductContext';
 
 const Dropzone = ({ formCall }) => {
-  // Definir context de productos
-  const productContext = useContext(ProductContext);
-  const { uploadFileP } = productContext;
+  // Definir context de usuario
+  const authContext = useContext(AuthContext);
+  const { uploadFileA } = authContext;
 
   // Definir context de recetas
   const recipeContext = useContext(RecipeContext)
   const { uploadFileR } = recipeContext;
+
+  // Definir context de productos
+  const productContext = useContext(ProductContext);
+  const { uploadFileP } = productContext;
 
   // Definir Funciones
   const onDropRejected = () => {
@@ -28,11 +33,16 @@ const Dropzone = ({ formCall }) => {
 
     // Llamar función del State
     try {
-      if (formCall === 'product') {
-        uploadFileP(formData);
+      if (formCall === 'profile') {
+        uploadFileA(formData);
       } else if (formCall === 'recipe') {
         uploadFileR(formData);
+      } else if (formCall === 'product') {
+        uploadFileP(formData);
+      } else {
+        console.log('Por Definir');
       };
+      message.success('Archivo subido correctamente');
     } catch (error) {
       message.error(error.msg);
     };

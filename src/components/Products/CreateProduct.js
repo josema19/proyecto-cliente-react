@@ -175,7 +175,7 @@ const CreateProduct = () => {
             <Form.Item className="last-element">
               <Button type="primary" htmlType="submit" loading={loading}>
                 Crear Producto
-            </Button>
+              </Button>
             </Form.Item>
           </Col>
         </Row>

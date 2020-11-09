@@ -98,7 +98,7 @@ const ForgotPassword = () => {
             }
           ]}
         >
-          <Input />
+          <Input.Password />
         </Form.Item>
         <Form.Item className="last-element">
           <Button type="primary" htmlType="submit" loading={loading}>

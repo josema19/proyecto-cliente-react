@@ -1,34 +1,52 @@
 // Importar librerías
-import React, { useContext, useEffect } from 'react';
-import { Row, Col, Form, Input, Button, Select, message } from 'antd';
+import React, { useEffect, useContext } from 'react';
+import { Form, Input, Button, Select, Row, Col, message } from 'antd';
 import { useHistory } from 'react-router-dom';
+
+// Importar rutas
+import * as ROUTES from '../../constants/routes';
 
 // Importar context
 import AuthContext from '../../context/auth/AuthContext';
 
+// Importar otros componentes
+import Dropzone from '../Dropzone';
+
 // Importar subcomponente Option
 const { Option } = Select;
 
-const Signup = () => {
-  // Definir context
+const EditProfile = () => {
+  // Definir context de usuario autenticado
   const authContext = useContext(AuthContext);
-  const { loading, messageA, cleanMessage, registerUser, switchLoading } = authContext;
+  const { loading, messageA, user, cleanMessage, editProfile, switchLoading } = authContext;
 
   // Definir nueva instancia de useHistory
   const history = useHistory();
 
   // Definir nueva instancia de useForm
-  const [FormInstance] = Form.useForm();
+  const [userFormInstance] = Form.useForm();
 
   // Definir effect para redireccionar
   useEffect(() => {
     if (messageA && !loading) {
       message.success(messageA);
-      history.push('/signin');
+      history.push(ROUTES.PROFILE);
       cleanMessage();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messageA, loading]);
+  }, [messageA, loading, history, cleanMessage]);
+
+  // Definir effect para setear los valores del formulario
+  useEffect(() => {
+    if (user) {
+      userFormInstance.setFieldsValue({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phoneType: user.phone.split('-')[0],
+        phoneNumber: user.phone.split('-')[1],
+        address: user.address,
+      });
+    };
+  }, [user, userFormInstance]);
 
   // Definir funciones
   /**
@@ -40,12 +58,12 @@ const Signup = () => {
     // Habilitar componente de carga
     switchLoading(true);
 
-    // Llamar a la función encargada de hacer el registro del usuario
+    // Llamar a la función encargada de hacer la actualización de la información
     try {
-      await registerUser(values);
+      await editProfile(values);
 
       // Limpiar formulario
-      FormInstance.resetFields();
+      userFormInstance.resetFields();
     } catch (error) {
       message.error(error.msg)
     };
@@ -66,18 +84,13 @@ const Signup = () => {
 
   // Renderizar componente
   return (
-    <div className="form-container margin-header-footer">
-      <h1>Registrarse</h1>
+    <div className="form-container">
+      <h1>Editar Perfil</h1>
       <Form
-        form={FormInstance}
-        name="RegisterForm"
+        form={userFormInstance}
+        name="LoginForm"
         layout="vertical"
         className="form-box"
-        initialValues={{
-          cardType: 'V',
-          phoneType: '212',
-        }
-        }
         onFinish={values => onFinish(values)}
         onFinishFailed={onFinishFailed}
       >
@@ -110,37 +123,11 @@ const Signup = () => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span="12">
-            <Form.Item label="Cédula">
-              <Form.Item
-                name="cardType"
-                style={{ display: 'inline-block', width: 'calc(30%)' }}
-              >
-                <Select>
-                  <Option value="V">V</Option>
-                  <Option value="E">E</Option>
-                  <Option value="G">G</Option>
-                </Select>
-              </Form.Item>
-              <Form.Item
-                name="cardId"
-                style={{ display: 'inline-block', width: 'calc(70%)' }}
-                rules={[
-                  {
-                    required: true,
-                    message: 'Por favor coloque una cédula'
-                  }
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </Form.Item>
-          </Col>
-          <Col span="12">
+          <Col span="24">
             <Form.Item label="Teléfono">
               <Form.Item
                 name="phoneType"
-                style={{ display: 'inline-block', width: 'calc(35%)' }}
+                style={{ display: 'inline-block', width: 'calc(15%)' }}
               >
                 <Select>
                   <Option value="212">212</Option>
@@ -153,7 +140,7 @@ const Signup = () => {
               </Form.Item>
               <Form.Item
                 name="phoneNumber"
-                style={{ display: 'inline-block', width: 'calc(65%)' }}
+                style={{ display: 'inline-block', width: 'calc(85%)' }}
                 rules={[
                   {
                     required: true,
@@ -165,21 +152,7 @@ const Signup = () => {
               </Form.Item>
             </Form.Item>
           </Col>
-          <Col span="12">
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: 'Por favor coloque un email válido'
-                }
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span="12">
+          <Col span="24">
             <Form.Item
               label="Dirección"
               name="address"
@@ -195,22 +168,15 @@ const Signup = () => {
           </Col>
           <Col span="24">
             <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Por favor coloque un password válido'
-                }
-              ]}
+              label="Imagen"
             >
-              <Input.Password />
+              <Dropzone formCall="profile" />
             </Form.Item>
           </Col>
           <Col span="24">
             <Form.Item className="last-element">
               <Button type="primary" htmlType="submit" loading={loading}>
-                Crear Cuenta
+                Editar Información
           </Button>
             </Form.Item>
           </Col>
@@ -218,6 +184,6 @@ const Signup = () => {
       </Form>
     </div>
   );
-}
+};
 
-export default Signup;
+export default EditProfile;

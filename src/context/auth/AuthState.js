@@ -72,6 +72,16 @@ const AuthState = ({ children }) => {
 
   /**
    *
+   * @param {*} values.
+   * Actualiza la información del usuario en la BD.
+   */
+  const editProfile = async (values) => {
+    console.log(values);
+    console.log('Actualizando información...');
+  };
+
+  /**
+   *
    * @param {*} values
    * Actualiza la contraseña del usuario.
    */
@@ -164,6 +174,25 @@ const AuthState = ({ children }) => {
     });
   };
 
+  /**
+   *
+   * @param {*} formData
+   * Sube una imagen de usuario al servidor.
+   */
+  const uploadFileA = async (formData) => {
+    try {
+      const response = await axiosClient.post('/api/files', formData);
+      // dispatch({
+      //   type: SUCCESSFUL_UPLOAD_FILE,
+      //   payload: response.data.file,
+      // });
+      // return Promise.resolve();
+    } catch (error) {
+      // Enviar mensaje de falla
+      return Promise.reject({ msg: error.response.data.msg });
+    }
+  };
+
   // Renderizar componente
   return (
     <AuthContext.Provider
@@ -175,11 +204,13 @@ const AuthState = ({ children }) => {
         user: state.user,
         authenticatedUser,
         cleanMessage,
+        editProfile,
         forgotPassword,
         login,
         logout,
         registerUser,
         switchLoading,
+        uploadFileA,
       }}
     >
       {children}

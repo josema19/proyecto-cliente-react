@@ -15,10 +15,15 @@ import * as ROUTES from '../../constants/routes';
 // Importar otros componentes
 import DeleteProductModal from './DeleteProductModal';
 
-// Importar context
+// Importar context de auth y product
+import AuthContext from '../../context/auth/AuthContext';
 import ProductContext from '../../context/products/ProductContext';
 
 const ProductsList = () => {
+  // Definir context de usuario autenticado
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+
   // Definir context
   const productContext = useContext(ProductContext);
   const { loading, products, messageP, cleanMessage, getProducts, selectedProduct } = productContext;
@@ -48,13 +53,17 @@ const ProductsList = () => {
         <Link to={`${ROUTES.PRODUCTS}/${record.code}`}>
           <EyeOutlined title="Ver" onClick={() => selectedProduct(record)} />
         </Link>
-        <Link to={ROUTES.PRODUCT_EDIT}>
-          <EditOutlined title="Editar" onClick={() => selectedProduct(record)} />
-        </Link>
-        <DeleteOutlined
-          title="Eliminar"
-          onClick={() => setFields(record)}
-        />
+        {user.role === 'admin' && (
+          <>
+            <Link to={ROUTES.PRODUCT_EDIT}>
+              <EditOutlined title="Editar" onClick={() => selectedProduct(record)} />
+            </Link>
+            <DeleteOutlined
+              title="Eliminar"
+              onClick={() => setFields(record)}
+            />
+          </>
+        )}
       </Space>
     );
   };
@@ -121,11 +130,13 @@ const ProductsList = () => {
     <div className="users-list">
       <div className="users-list-title">
         <h1>Productos del Local</h1>
-        <Button type="primary">
+        <Button
+          type="primary"
+          icon={<PlusOutlined title="Nuevo" />}
+        >
           <Link to={ROUTES.PRODUCT_CREATE}>
-            <PlusOutlined />
-          Nuevo
-        </Link>
+            Nuevo
+          </Link>
         </Button>
       </div>
       <Divider />

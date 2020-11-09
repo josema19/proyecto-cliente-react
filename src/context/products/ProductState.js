@@ -191,7 +191,6 @@ const ProductState = ({ children }) => {
   /**
    *
    * @param {*} formData
-   * @param {*} fileName
    * Sube una imagen del producto al servidor.
    */
   const uploadFileP = async (formData) => {

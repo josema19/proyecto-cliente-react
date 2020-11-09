@@ -14,11 +14,16 @@ import * as ROUTES from '../../constants/routes';
 // Importar otros componentes
 import DeleteRecipeModal from './DeleteRecipeModal';
 
-// Importar context
+// Importar context de auth y recipe
+import AuthContext from '../../context/auth/AuthContext';
 import RecipeContext from '../../context/recipes/RecipeContext';
 
 const RecipesList = () => {
-  // Definir context
+  // Definir context de usuario autenticado
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+
+  // Definir context de recetas
   const recipeContext = useContext(RecipeContext);
   const { loading, recipes, messageR, cleanMessage, getRecipes, selectedRecipe } = recipeContext;
 
@@ -47,13 +52,17 @@ const RecipesList = () => {
         <Link to={`${ROUTES.RECIPES}/${record.id}`}>
           <EyeOutlined title="Ver" onClick={() => selectedRecipe(record)} />
         </Link>
-        <Link to={ROUTES.RECIPE_EDIT}>
-          <EditOutlined title="Editar" onClick={() => selectedRecipe(record)} />
-        </Link>
-        <DeleteOutlined
-          title="Eliminar"
-          onClick={() => setFields(record)}
-        />
+        {user.role === 'admin' && (
+          <>
+            <Link to={ROUTES.RECIPE_EDIT}>
+              <EditOutlined title="Editar" onClick={() => selectedRecipe(record)} />
+            </Link>
+            <DeleteOutlined
+              title="Eliminar"
+              onClick={() => setFields(record)}
+            />
+          </>
+        )}
       </Space>
     );
   };
@@ -125,11 +134,13 @@ const RecipesList = () => {
     <div className="users-list">
       <div className="users-list-title">
         <h1>Recetas del Local</h1>
-        <Button type="primary">
+        <Button
+          type="primary"
+          icon={<PlusOutlined title="Nuevo" />}
+        >
           <Link to={ROUTES.RECIPE_CREATE}>
-            <PlusOutlined />
-          Nuevo
-        </Link>
+            Nuevo
+          </Link>
         </Button>
       </div>
       <Divider />

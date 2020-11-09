@@ -24,6 +24,7 @@ export const PRODUCT_EDIT = '/products/edit'
 
 // Perfil de Usuario
 export const PROFILE = '/profile'
+export const PROFILE_EDIT = '/profile/edit'
 
 // Recetas
 export const RECIPES = '/recipes'
