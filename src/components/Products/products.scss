@@ -17,3 +17,23 @@
         }
     }
 }
+
+.container-card {
+    width: 40%;
+    margin: 0 auto;
+
+    .ant-card-meta-title,
+    .ant-card-head-title {
+        font-weight: bold;
+    }
+
+    .ant-card-body {
+        background-color: $light-gray;
+    }
+
+    .ant-card-cover {
+        img {
+            height: 200px;
+        }
+    }
+}

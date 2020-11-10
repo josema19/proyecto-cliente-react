@@ -44,8 +44,8 @@
 
     .logo {
         height: 80px;
-        margin: 5px auto 5px 10px;
-        width: 80px;
+        margin: 15px auto 15px 10px;
+        width: 85px;
     }
 
     .menu {
@@ -63,7 +63,7 @@
         color: $black;
         font-family: "Roboto Slab";
         font-weight: 700;
-        font-size: 13px;
+        font-size: 16px;
         letter-spacing: 2.5px;
         text-transform: uppercase;
         text-decoration: none;
@@ -104,7 +104,6 @@
         .footer-content {
             display: flex;
             flex-direction: column;
-            opacity: 0.8;
             text-align: center;
 
             .footer-title {

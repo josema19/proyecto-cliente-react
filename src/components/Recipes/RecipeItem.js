@@ -36,9 +36,9 @@ const RecipeItem = () => {
   // Renderizar componente
   return (
     recipe && (
-      <>
+      <div className="container-card">
         <div>
-          <Button type="link" href={ROUTES.RECIPES}>
+          <Button type="primary" href={ROUTES.RECIPES}>
             <ArrowLeftOutlined />
             Listado de Recetas
           </Button>
@@ -50,7 +50,7 @@ const RecipeItem = () => {
             <Meta title="Preparación" description={recipe.preparation} />
           </Card>
         </Card>
-      </>
+      </div>
     )
   );
 }

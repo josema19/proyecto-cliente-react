@@ -103,7 +103,7 @@ const ProductState = ({ children }) => {
   const editProduct = async (values) => {
     try {
       // Agregar información de la imagen
-      values = { ...values, image: state.image }
+      values = { ...values, image: state.image };
 
       const response = await axiosClient.put(`/api/products/${state.product.code}`, values);
 

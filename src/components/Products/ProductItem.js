@@ -36,9 +36,9 @@ const ProductItem = () => {
   // Renderizar componente
   return (
     product && (
-      <>
+      <div className="container-card">
         <div>
-          <Button type="link" href={ROUTES.PRODUCTS}>
+          <Button type="primary" href={ROUTES.PRODUCTS}>
             <ArrowLeftOutlined />
             Listado de Productos
           </Button>
@@ -54,7 +54,7 @@ const ProductItem = () => {
             <Meta title="Precio Actual" description={product.price} />
           </Card>
         </Card>
-      </>
+      </div>
     )
   );
 }

@@ -130,14 +130,14 @@ const ProductsList = () => {
     <div className="users-list">
       <div className="users-list-title">
         <h1>Productos del Local</h1>
-        <Button
-          type="primary"
-          icon={<PlusOutlined title="Nuevo" />}
-        >
-          <Link to={ROUTES.PRODUCT_CREATE}>
+        <Link to={ROUTES.PRODUCT_CREATE}>
+          <Button
+            type="primary"
+            icon={<PlusOutlined title="Nuevo" />}
+          >
             Nuevo
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
       <Divider />
       <DeleteProductModal

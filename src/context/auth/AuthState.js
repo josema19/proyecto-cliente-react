@@ -11,9 +11,11 @@ import {
   CLEAN_MESSAGE,
   FAILED_AUTHENTICATED_USER,
   LOGOUT,
+  SUCCESSFUL_EDIT_PROFILE,
   SUCCESSFUL_REGISTRATION,
   SUCCESSFUL_LOGIN,
   SUCCESSFUL_FORGOT_PASSWORD,
+  SUCCESSFUL_UPLOAD_FILE,
   SWITCH_LOADING,
 } from '../../types';
 
@@ -48,6 +50,8 @@ const AuthState = ({ children }) => {
     // Intentar obtener usuario desde la BD
     try {
       const response = await axiosClient.get('/api/auth');
+
+      // Actualizar state
       dispatch({
         type: AUTHENTICATED_USER,
         payload: response.data.user
@@ -76,8 +80,23 @@ const AuthState = ({ children }) => {
    * Actualiza la información del usuario en la BD.
    */
   const editProfile = async (values) => {
-    console.log(values);
-    console.log('Actualizando información...');
+    try {
+      // Agregar información de la imagen
+      values = { ...values, image: state.user.image };
+
+      const response = await axiosClient.put(`/api/users/${state.user.id}`, values);
+
+      // Actualizar state del mensaje
+      dispatch({
+        type: SUCCESSFUL_EDIT_PROFILE,
+        payload: response.data.msg,
+      });
+
+      return Promise.resolve();
+    } catch (error) {
+      // Enviar mensaje de falla
+      return Promise.reject({ msg: error.response.data.msg });
+    };
   };
 
   /**
@@ -98,7 +117,6 @@ const AuthState = ({ children }) => {
       });
 
       return Promise.resolve();
-
     } catch (error) {
       // Enviar mensaje de falla
       return Promise.reject({ msg: error.response.data.msg });
@@ -182,11 +200,11 @@ const AuthState = ({ children }) => {
   const uploadFileA = async (formData) => {
     try {
       const response = await axiosClient.post('/api/files', formData);
-      // dispatch({
-      //   type: SUCCESSFUL_UPLOAD_FILE,
-      //   payload: response.data.file,
-      // });
-      // return Promise.resolve();
+      dispatch({
+        type: SUCCESSFUL_UPLOAD_FILE,
+        payload: response.data.file,
+      });
+      return Promise.resolve();
     } catch (error) {
       // Enviar mensaje de falla
       return Promise.reject({ msg: error.response.data.msg });

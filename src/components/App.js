@@ -22,7 +22,8 @@ import Products from './Products';
 import Users from './Users';
 import Footer from '../components/Layout/Footer';
 
-// Importar state
+// Importar context
+import OrderState from '../context/orders/OrderState';
 import AuthState from '../context/auth/AuthState';
 import UserState from '../context/users/UserState';
 import ProductState from '../context/products/ProductState';
@@ -78,19 +79,21 @@ const GeneralComponents = () => {
 
 const App = () => (
   <AuthState>
-    <RecipeState>
-      <ProductState>
-        <UserState>
-          <Router>
-            <Layout>
-              <Switch>
-                <Route path="/" component={GeneralComponents} />
-              </Switch>
-            </Layout>
-          </Router>
-        </UserState>
-      </ProductState>
-    </RecipeState>
+    <OrderState>
+      <RecipeState>
+        <ProductState>
+          <UserState>
+            <Router>
+              <Layout>
+                <Switch>
+                  <Route path="/" component={GeneralComponents} />
+                </Switch>
+              </Layout>
+            </Router>
+          </UserState>
+        </ProductState>
+      </RecipeState>
+    </OrderState>
   </AuthState>
 )
 

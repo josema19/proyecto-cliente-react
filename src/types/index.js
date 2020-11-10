@@ -9,6 +9,7 @@ export const LOGOUT = 'LOGOUT';
 // Context Users
 export const FAILED_GET_USERS = 'FAILED_GET_USERS';
 export const SUCCESSFUL_GET_USERS = 'SUCCESSFUL_GET_USERS';
+export const SUCCESSFUL_EDIT_PROFILE = 'SUCCESSFUL_EDIT_PROFILE';
 
 // Contex Products
 export const FAILED_GET_PRODUCT = 'FAILED_GET_PRODUCT';

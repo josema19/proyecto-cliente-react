@@ -134,14 +134,14 @@ const RecipesList = () => {
     <div className="users-list">
       <div className="users-list-title">
         <h1>Recetas del Local</h1>
-        <Button
-          type="primary"
-          icon={<PlusOutlined title="Nuevo" />}
-        >
-          <Link to={ROUTES.RECIPE_CREATE}>
+        <Link to={ROUTES.RECIPE_CREATE}>
+          <Button
+            type="primary"
+            icon={<PlusOutlined title="Nuevo" />}
+          >
             Nuevo
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
       <Divider />
       <DeleteRecipeModal

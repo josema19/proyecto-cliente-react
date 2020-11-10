@@ -1,0 +1,33 @@
+.container-image-profile {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+        font-weight: bold;
+    }
+}
+
+.container-info-profile {
+    .ant-descriptions-item-label {
+        font-weight: bold;
+        font-size: 16px;
+    }
+}
+
+.ant-btn {
+    background-color: $light-gray;
+    border: none;
+    cursor: pointer;
+    color: $black;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background-color 0.5s ease-in-out;
+    width: 100%;
+}
+
+.ant-btn:hover {
+    background-color: $gray;
+}

@@ -11,13 +11,15 @@ const { Meta } = Card;
 // Componente extra
 const CardRecipe = ({ recipe }) => {
   return (
-    <Card title={recipe.name}>
-      <Card cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
-        <Meta title="Ingredientes" description={recipe.ingredients} />
-        <Divider />
-        <Meta title="Preparación" description={recipe.preparation} />
+    <div className="container-card">
+      <Card title={recipe.name}>
+        <Card cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
+          <Meta title="Ingredientes" description={recipe.ingredients} />
+          <Divider />
+          <Meta title="Preparación" description={recipe.preparation} />
+        </Card>
       </Card>
-    </Card>
+    </div>
   )
 };
 

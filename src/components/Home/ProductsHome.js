@@ -11,17 +11,19 @@ const { Meta } = Card;
 // Componente extra
 const CardProduct = ({ product }) => {
   return (
-    <Card title={product.name}>
-      <Card cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
-        <Meta title="Código" description={product.code} />
-        <Divider />
-        <Meta title="Descripción" description={product.description} />
-        <Divider />
-        <Meta title="Unidades Disponibles" description={product.quantityAvailable} />
-        <Divider />
-        <Meta title="Precio Actual" description={product.price} />
+    <div className="container-card">
+      <Card title={product.name}>
+        <Card cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
+          <Meta title="Código" description={product.code} />
+          <Divider />
+          <Meta title="Descripción" description={product.description} />
+          <Divider />
+          <Meta title="Unidades Disponibles" description={product.quantityAvailable} />
+          <Divider />
+          <Meta title="Precio Actual" description={product.price} />
+        </Card>
       </Card>
-    </Card>
+    </div>
   )
 };
 
