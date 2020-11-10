@@ -14,7 +14,6 @@ export const DASHBOARD = '/dashboard'
 export const ORDERS = '/orders'
 export const ORDER = '/orders/:id'
 export const ORDER_CREATE = '/orders/create'
-export const ORDER_EDIT = '/orders/edit'
 
 // Productos
 export const PRODUCTS = '/products'

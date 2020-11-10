@@ -84,7 +84,7 @@ const Dropzone = ({ formCall }) => {
               <div>
                 <p>Selecciona un archivo y arrástralo aquí</p>
                 <Button>
-                  Selecciona archivos para subir
+                  Selecciona un archivo para subir
                 </Button>
               </div>
             )}

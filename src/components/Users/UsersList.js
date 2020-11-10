@@ -63,9 +63,6 @@ const UsersList = () => {
       render: (_, record) => showRoles[record.role],
       sorter: (a, b) => (showRoles[a.role]).localeCompare(showRoles[b.role]),
     },
-    {
-      title: 'ACCIONES',
-    },
   ];
 
   // Renderizar componente

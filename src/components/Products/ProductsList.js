@@ -24,7 +24,7 @@ const ProductsList = () => {
   const authContext = useContext(AuthContext);
   const { user } = authContext;
 
-  // Definir context
+  // Definir context de products
   const productContext = useContext(ProductContext);
   const { loading, products, messageP, cleanMessage, getProducts, selectedProduct } = productContext;
 

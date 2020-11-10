@@ -4,6 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 
 // Importar otros componentes
 import OrdersList from './OrdersList';
+import OrderItem from './OrderItem';
+import CreateOrder from './CreateOrder';
 
 // Importar rutas
 import * as ROUTES from '../../constants/routes';
@@ -21,9 +23,8 @@ const Orders = () => {
     authenticated && (
       <Switch>
         <Route exact path={ROUTES.ORDERS} component={OrdersList} />
-        {/* <Route exact path={ROUTES.ORDER_CREATE} component={CreateOrder} />
-        <Route exact path={ROUTES.ORDER_EDIT} component={EditOrder} />
-        <Route exact path={ROUTES.ORDER} component={OrderItem} /> */}
+        <Route exact path={ROUTES.ORDER_CREATE} component={CreateOrder} />
+        <Route exact path={ROUTES.ORDER} component={OrderItem} />
       </Switch>
     )
   );
