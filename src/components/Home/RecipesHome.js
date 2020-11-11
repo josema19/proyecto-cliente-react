@@ -39,7 +39,7 @@ const RecipesHome = () => {
     <>
       <h1>Nuestras Recetas</h1>
       <div className="carousel-container">
-        <Carousel autoplay className="carousel-content">
+        <Carousel autoplay className="carousel-content" effect="fade">
           {recipes.map(recipe => (
             <CardRecipe key={recipe.id} recipe={recipe} />
           )

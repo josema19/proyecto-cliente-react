@@ -43,7 +43,7 @@ const ProductsHome = () => {
     <>
       <h1>Nuestros Productos</h1>
       <div className="carousel-container">
-        <Carousel autoplay className="carousel-content">
+        <Carousel autoplay className="carousel-content" effect="fade">
           {products.map(product => (
             <CardProduct key={product.id} product={product} />
           )

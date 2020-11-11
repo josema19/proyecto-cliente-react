@@ -15,7 +15,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        height: 500px;
+        height: 520px;
         max-height: 1000px;
         width: 100%;
 
@@ -50,6 +50,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
+        height: 550px;
     }
 
     .home-recipes {
@@ -60,4 +61,25 @@
 .carousel-container {
     width: auto;
     width: 1200px;
+    text-align: center;
+}
+
+.container-us-text {
+    align-items: center;
+    background-color: #fff8;
+    color: $black;
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+    flex-direction: column;
+    height: 400px;
+    letter-spacing: 2px;
+    padding: 30px;
+
+    text-align: justify;
+}
+
+.container-us-map {
+    width: auto;
+    height: 400px;
 }

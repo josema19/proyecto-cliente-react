@@ -23,7 +23,7 @@ const Home = () => {
       } else {
         scroller.scrollTo(scrollTo, {
           smooth: true,
-          offset: -window.innerHeight * 0.12,
+          offset: -window.innerHeight * 0.11,
         })
       }
     }
