@@ -29,9 +29,6 @@ const footerData = [
       <Link to={{ pathname: ROUTES.HOME, scrollTo: 'recipeshome' }}>
         Recetas
       </Link>,
-      <Link to={{ pathname: ROUTES.HOME, scrollTo: 'contact' }}>
-        Contáctanos
-      </Link>
     ]
   },
   {

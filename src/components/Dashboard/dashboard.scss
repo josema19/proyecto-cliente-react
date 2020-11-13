@@ -1,0 +1,53 @@
+.home-container-dashboard {
+    h1 {
+        text-align: center;
+        margin: 30px auto;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .ant-row {
+        .container-us-text {
+            // padding: 0;
+            p {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .home-dashboard-us {
+        background-image: linear-gradient(
+                rgba(155, 155, 155, 0.5),
+                rgba(155, 155, 155, 0.5)
+            ),
+            url("../../images/frutossecos.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 500px;
+    }
+
+    .home-dashboard-recipes {
+        background-image: linear-gradient(
+                rgba(155, 155, 155, 0.4),
+                rgba(155, 155, 155, 0.4)
+            ),
+            url("../../images/recetas.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 650px;
+    }
+
+    .home-dashboard-products {
+        background-image: linear-gradient(
+                rgba(155, 155, 155, 0.4),
+                rgba(155, 155, 155, 0.4)
+            ),
+            url("../../images/productos.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 800px;
+    }
+}

@@ -27,17 +27,25 @@
     }
 
     .home-landing {
+        // background-image: linear-gradient(
+        //         rgba(155, 155, 155, 0.4),
+        //         rgba(155, 155, 155, 0.4)
+        //     ),
+        //     url("images/casatorta.jpg");
+        // background-repeat: no-repeat;
+        // background-size: cover;
+        // background-position: center center;
+    }
+
+    .home-products {
         background-image: linear-gradient(
                 rgba(155, 155, 155, 0.4),
                 rgba(155, 155, 155, 0.4)
             ),
-            url("./images/casatorta.jpg");
+            url("../../images/productos.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
-    }
-
-    .home-products {
         height: 900px;
     }
 
@@ -46,7 +54,7 @@
                 rgba(155, 155, 155, 0.5),
                 rgba(155, 155, 155, 0.5)
             ),
-            url("./images/frutossecos.jpg");
+            url("../../images/frutossecos.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
@@ -54,6 +62,14 @@
     }
 
     .home-recipes {
+        background-image: linear-gradient(
+                rgba(155, 155, 155, 0.4),
+                rgba(155, 155, 155, 0.4)
+            ),
+            url("../../images/recetas.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
         height: 700px;
     }
 }
@@ -61,6 +77,11 @@
 .carousel-container {
     width: auto;
     width: 1200px;
+    text-align: center;
+}
+
+.carousel-container2 {
+    width: 100%;
     text-align: center;
 }
 

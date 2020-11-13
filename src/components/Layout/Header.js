@@ -39,11 +39,6 @@ const Header = () => {
                   Recetas
               </Link>
               </Menu.Item>
-              <Menu.Item key="contacts">
-                <Link to={{ pathname: ROUTES.HOME, scrollTo: 'contact' }} className="navigation-text">
-                  Contáctanos
-              </Link>
-              </Menu.Item>
               <Menu.Item key="line">
                 <Divider type="vertical" />
               </Menu.Item>

@@ -8,7 +8,6 @@ import Landing from './Landing';
 import ProductsHome from './ProductsHome';
 import Us from './Us';
 import RecipesHome from './RecipesHome';
-import Contact from './Contact';
 
 const Home = () => {
   // Definir instancia de location
@@ -43,9 +42,6 @@ const Home = () => {
       </Element>
       <Element name="recipeshome" className="home-recipes">
         <RecipesHome />
-      </Element>
-      <Element name="contact" className="home-contact">
-        <Contact />
       </Element>
     </div>
   );
