@@ -1,35 +1,87 @@
 // Importar librerías
-import React from 'react';
-import { Divider, Table, Button, Space, Row, Col, Form, Select, InputNumber, Input } from 'antd';
+import React, { useState } from 'react';
+import { Divider, Table, Button, Space, Row, Col, Form, Select, InputNumber } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 
-const ProductForm = ({ formIntance, style }) => {
-  const productsList = [];
+// Definir subcomponente Option
+const { Option } = Select;
+
+const ProductForm = ({ formInstance, dolarValue, style,
+  products, userProducts, addProduct, deleteProduct }) => {
+  // Definir state
+  const [maxQuantity, setMaxQuantiy] = useState(0);
+  const [selectedProduct, setSelectProduct] = useState(null);
+
+  // Definir funciones
+  /**
+   * Construye la información de un producto para ser enviada al state global.
+   */
+  const buildProduct = () => {
+    // Obtener valores del formulario
+    const formValues = formInstance.getFieldsValue();
+
+    // Definir información del producto
+    const newProduct = {
+      code: selectedProduct.code,
+      name: selectedProduct.name,
+      quantity: formValues.quantity,
+      totalBolivares: (selectedProduct.price * formValues.quantity),
+      totalDolares: (selectedProduct.price * formValues.quantity) / dolarValue,
+    };
+
+    // Agregar producto
+    addProduct(newProduct);
+
+    // Limpiar formulario
+    formInstance.resetFields();
+  };
+
+  /**
+   *
+   * @param {*} changedValue
+   * @param {*} allValues
+   * Escucha y modifica los valores asociados al valor numérico del formulario.
+   */
+  const onChangeValue = (changedValue, allValues) => {
+    // Obtener campo seleccionado
+    const field = Object.keys(changedValue)[0];
+
+    // Setear campos según sea el caso
+    if (field === 'product') {
+      // Obtener id del product
+      const { product } = allValues;
+
+      // Obtener información del producto seleccionado
+      const selectedPro = products.find(pro => pro.name === product);
+
+      // Setear valores en el formulario
+      formInstance.setFieldsValue({
+        quantity: 1,
+        quantityAvailable: selectedPro.quantityAvailable,
+        price: selectedPro.price,
+      });
+
+      // Setear valores del producto seleccionado y habilitar campo de cantidad
+      setSelectProduct(selectedPro);
+      setMaxQuantiy(selectedPro.quantityAvailable);
+    };
+  };
 
   /**
    *
    * @param {*} _
    * @param {*} record
-   * Rederiza un componente con las acciones a realizar en el listado de productos.
+   * Renderiza un componente con las acciones a realizar en el listado de productos.
    */
   const renderActions = (_, record) => {
     return (
       <Space>
         <DeleteOutlined
           title="Eliminar"
-          onClick={() => removeProduct(record)}
+          onClick={() => deleteProduct(record.code)}
         />
       </Space>
     );
-  };
-
-  // Definir funciones
-  const removeProduct = (record) => {
-    console.log('Por definir');
-  };
-
-  const addProduct = () => {
-    console.log('Agregar Productos');
   };
 
   // Definir columnas de la tabla
@@ -45,18 +97,18 @@ const ProductForm = ({ formIntance, style }) => {
       title: 'CANTIDAD',
       dataIndex: 'quantity',
       key: 'quantity',
-      render: (_, record) => record.quantityAvailable,
-      sorter: (a, b) => a.quantityAvailable - b.quantityAvailable,
+      render: (_, record) => record.quantity,
+      sorter: (a, b) => a.quantity - b.quantity,
     },
     {
       title: 'TOTAL',
-      dataIndex: 'total',
+      dataIndex: 'totalBolivares',
       key: 'total',
-      render: (_, record) => record.total,
-      sorter: (a, b) => a.total - b.total,
+      render: (_, record) => record.totalBolivares,
+      sorter: (a, b) => a.totalBolivares - b.totalBolivares,
     },
     {
-      title: 'ACCIONES',
+      title: 'ELIMINAR',
       dataIndex: 'actions',
       key: 'actions',
       render: renderActions,
@@ -66,18 +118,19 @@ const ProductForm = ({ formIntance, style }) => {
   // Renderizar componente
   return (
     <Form
-      form={formIntance}
+      form={formInstance}
       name="ProductForm"
       layout="vertical"
+      onValuesChange={onChangeValue}
       className="form-box"
       style={style}
     >
       <Row gutter={(0, 24)}>
         <Col span={12}>
-          <h1>Listado de Productos a Adquirir</h1>
+          <h1>Productos a Adquirir</h1>
           <Table
             columns={columns}
-            dataSource={[]}
+            dataSource={userProducts}
             rowKey={(r) => r.code}
           />
         </Col>
@@ -87,7 +140,19 @@ const ProductForm = ({ formIntance, style }) => {
             label="Nombre del Producto"
             name="product"
           >
-            <Select showSearch />
+            <Select placeholder="Selecciona" showSearch>
+              {products && products.map((option) => {
+                const findProduct = userProducts.find(item => item.code === option.code);
+                if (findProduct) {
+                  return null
+                };
+                return (
+                  <Option key={option.id} value={option.name}>
+                    {option.name}
+                  </Option>
+                );
+              })}
+            </Select>
           </Form.Item>
           <Row gutter={(0, 24)}>
             <Col span="7">
@@ -97,11 +162,12 @@ const ProductForm = ({ formIntance, style }) => {
               >
                 <InputNumber
                   min="1"
-                  max="3"
+                  max={maxQuantity}
                   step="1"
                   precision={0}
                   style={{ width: '100%' }}
                   parser={(value) => value.replace(/([^0-9])/g, '') || 1}
+                  disabled={maxQuantity === 0 ? true : false}
                 />
               </Form.Item>
             </Col>
@@ -125,14 +191,14 @@ const ProductForm = ({ formIntance, style }) => {
               </Form.Item>
             </Col>
           </Row>
-          <Button type="primary" onClick={() => addProduct()}>
+          <Button icon={<PlusOutlined />} type="primary" onClick={() => buildProduct()}>
             Agregar Producto
           </Button>
         </Col>
       </Row>
       <Divider />
       <Row>
-        <Button type="primary" htmlType="submit" disabled={productsList.length === 0 ? false : true}>
+        <Button type="primary" htmlType="submit" disabled={userProducts.length === 0 ? true : false}>
           Siguiente
         </Button>
       </Row>

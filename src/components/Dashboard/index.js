@@ -1,6 +1,5 @@
 // Importar librerías
 import React, { useEffect, useContext } from 'react';
-import { Row, Col } from 'antd';
 
 // Importar otros componentes
 import Landing from '../Home/Landing';

@@ -7,6 +7,7 @@ import { Button, message } from 'antd';
 import AuthContext from '../../context/auth/AuthContext';
 import RecipeContext from '../../context/recipes/RecipeContext';
 import ProductContext from '../../context/products/ProductContext';
+import OrderContext from '../../context/orders/OrderContext';
 
 const Dropzone = ({ formCall }) => {
   // Definir context de usuario
@@ -21,11 +22,21 @@ const Dropzone = ({ formCall }) => {
   const productContext = useContext(ProductContext);
   const { uploadFileP } = productContext;
 
+  // Definir context de pedidos
+  const orderContext = useContext(OrderContext);
+  const { uploadFileO } = orderContext;
+
   // Definir Funciones
+  /**
+   * Muestra un mensaje al usuario de que el archivo ha sido rechazado.
+   */
   const onDropRejected = () => {
     message.error('No se pudo subir el archivo porque el tamaño máximo permitido es de 1MB');
   };
 
+  /**
+   * Sube un archivo al servidor.
+   */
   const onDropAccepted = useCallback(async acceptedFiles => {
     // Definir Form-Data
     const formData = new FormData();
@@ -40,7 +51,7 @@ const Dropzone = ({ formCall }) => {
       } else if (formCall === 'product') {
         uploadFileP(formData);
       } else {
-        console.log('Por Definir');
+        uploadFileO(formData);
       };
       message.success('Archivo subido correctamente');
     } catch (error) {
@@ -55,10 +66,11 @@ const Dropzone = ({ formCall }) => {
     onDropRejected,
     maxFiles: 1,
     maxSize: 1000000,
+    accept: '.jpg, .jpeg, .pdf'
   });
 
   // Definir pieza del render
-  const files = acceptedFiles.map(file => (
+  const files = acceptedFiles.map((file, i) => (
     <li
       key={file.lastModified}
       className="dropzone-list bg-white flex-1 p-3 mb-4 shadow-lg rounded"

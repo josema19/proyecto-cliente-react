@@ -1,9 +1,33 @@
 // Importar librerías
-import React from 'react';
-import { Divider, Table, Button, Space, Row, Col, Form, Select, InputNumber, Input } from 'antd';
+import React, { useEffect } from 'react';
+import { Button, Row, Col, Form, Input } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
-const UserForm = ({ formInstance, style, handlePreviousButtonClick }) => {
+const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick, user, userProducts }) => {
+  // Setear valores en formulario
+  useEffect(() => {
+    // Total a pagar en Bolívares
+    let totalBolivares = 0;
+    let totalDolares = 0;
+    userProducts.forEach(item => {
+      totalBolivares += item.totalBolivares;
+      totalDolares += item.totalDolares
+    });
+
+    // Setear valores
+    formInstance.setFieldsValue({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phone,
+      card: user.card,
+      address: user.address,
+      totalProducts: userProducts.length,
+      totalBolivares: totalBolivares,
+      totalDolares: Math.round(totalDolares),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userProducts]);
+
   // Renderizar componente
   return (
     <Form
@@ -72,18 +96,26 @@ const UserForm = ({ formInstance, style, handlePreviousButtonClick }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span="12">
+        <Col span="4">
           <Form.Item
-            label="Cantidad Total de Artículos"
+            label="Número de Productos"
             name="totalProducts"
           >
             <Input disabled={true} />
           </Form.Item>
         </Col>
-        <Col span="12">
+        <Col span="10">
           <Form.Item
-            label="Total a Pagar"
-            name="total"
+            label="Total en Bolívares"
+            name="totalBolivares"
+          >
+            <Input disabled={true} />
+          </Form.Item>
+        </Col>
+        <Col span="10">
+          <Form.Item
+            label="Total en Dólares"
+            name="totalDolares"
           >
             <Input disabled={true} />
           </Form.Item>
@@ -100,7 +132,7 @@ const UserForm = ({ formInstance, style, handlePreviousButtonClick }) => {
             </Button>
         </Col>
         <Col>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Generar Pedido
           </Button>
         </Col>

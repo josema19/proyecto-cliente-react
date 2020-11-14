@@ -1,11 +1,25 @@
 // Importar librerías
 import React from 'react';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Divider, Table, Button, Space, Row, Col, Form, Select, InputNumber, Input } from 'antd';
+import { Divider, Button, Row, Col, Form, Select } from 'antd';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 
 // Importar otros componentes
 import Dropzone from '../Dropzone';
+
+// Definir información de los tipos de pago
+const paymentType = [
+  { value: 'efectivo', label: 'Efectivo' },
+  { value: 'transferencia', label: 'Transferencia' },
+];
+
+// Definir información de la moneda
+const coinType = [
+  { value: 'bolivar', label: 'Bolívar' },
+  { value: 'dolar', label: 'Dólar' }
+];
+
+// Definir subcomponente Option
+const { Option } = Select;
 
 const PaymentForm = ({ formInstance, style, handlePreviousButtonClick }) => {
   // Renderizar componente
@@ -22,23 +36,47 @@ const PaymentForm = ({ formInstance, style, handlePreviousButtonClick }) => {
           <Form.Item
             label="Tipo de Pago"
             name="paymentType"
+            rules={[
+              {
+                required: true,
+                message: 'Por favor seleccione el tipo de pago'
+              }
+            ]}
           >
-            <Select showSearch />
+            <Select>
+              {paymentType.map((option) => (
+                <Option key={option.value} value={option.value}>
+                  {option.label}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
         </Col>
         <Col span="12">
           <Form.Item
             label="Tipo de Moneda"
-            name="coinType"
+            name="typeCoin"
+            rules={[
+              {
+                required: true,
+                message: 'Seleccione el tipo de moneda'
+              }
+            ]}
           >
-            <Select showSearch />
+            <Select>
+              {coinType.map((option) => (
+                <Option key={option.value} value={option.value}>
+                  {option.label}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
         </Col>
         <Col span="24">
           <Form.Item
             label="Comprobante de Pago (Si Aplica)"
           >
-            <Dropzone formCall="product" />
+            <Dropzone />
           </Form.Item>
         </Col>
       </Row>
