@@ -115,8 +115,8 @@ const OrdersList = () => {
       title: 'USUARIO',
       dataIndex: 'userId',
       key: 'userId',
-      render: (_, record) => record.UserId,
-      sorter: (a, b) => a.UserId - b.UserId,
+      render: (_, record) => record.User.firstName + ' ' + record.User.lastName,
+      sorter: (a, b) => (a.User.firstName + ' ' + a.User.lastName).localeCompare(b.User.firstName + ' ' + b.User.lastName),
       show: user.role === 'admin' ? true : false,
     },
     {
@@ -124,7 +124,7 @@ const OrdersList = () => {
       dataIndex: 'actions',
       key: 'actions',
       render: renderActions,
-      show: true,
+      show: user.role === 'user' ? true : false,
     },
   ];
 

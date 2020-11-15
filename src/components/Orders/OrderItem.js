@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useContext, useEffect } from 'react';
-import { message } from 'antd';
+import { message, List, Button, Avatar } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
@@ -30,9 +30,58 @@ const OrderItem = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Definir Header Component para renderizar
+  const Header = () => (
+    <div className="container-list-header">
+      <p>Orden # {order.id}</p>
+    </div>
+  );
+
+  // // Definir Footer Component para renderizar
+  // const Footer = () => (
+  //   <h1>Footer</h1>
+  //   <p></p>
+  // );
+
   // Renderizar componente
   return (
-    <h1>Por definir</h1>
+    order && (
+      <div className="container-list">
+        <div>
+          <Button type="primary" href={ROUTES.ORDERS}>
+            <ArrowLeftOutlined />
+            Listado de Pedidos
+          </Button>
+        </div>
+        <List
+          size="large"
+          header={<Header />}
+          // footer={<Footer />}
+          bordered
+          dataSource={order.products}
+          renderItem={item => {
+            return (
+              <List.Item>
+                <div className="container-list-body">
+                  <div>
+                    <h1>Producto</h1>
+                    <p> {item.name}</p>
+                  </div>
+                  <div>
+                    <h1>Cantidad Adquirida</h1>
+                    <p>{item.quantity}</p>
+                  </div>
+                  <div>
+                    <h1>Imagen</h1>
+                    <Avatar src={`${process.env.REACT_APP_BANCKEND_URL}/${item.image}`} size="large" shape="square" />
+                  </div>
+                </div>
+              </List.Item>
+            )
+          }}
+        />
+      </div>
+    )
   );
 }
 

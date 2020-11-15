@@ -8,14 +8,14 @@ import Dropzone from '../Dropzone';
 
 // Definir información de los tipos de pago
 const paymentType = [
-  { value: 'efectivo', label: 'Efectivo' },
-  { value: 'transferencia', label: 'Transferencia' },
+  { value: 'Efectivo', label: 'Efectivo' },
+  { value: 'Transferencia', label: 'Transferencia' },
 ];
 
 // Definir información de la moneda
 const coinType = [
-  { value: 'bolivar', label: 'Bolívar' },
-  { value: 'dolar', label: 'Dólar' }
+  { value: 'Bolivar', label: 'Bolívar' },
+  { value: 'Dolar', label: 'Dólar' }
 ];
 
 // Definir subcomponente Option
@@ -99,7 +99,7 @@ const PaymentForm = ({ formInstance, style, voucher, handlePreviousButtonClick }
             <Button
               type="primary"
               htmlType="submit"
-              disabled={(selectedPayment === 'transferencia') && !voucher ? true : false}
+              disabled={(selectedPayment === 'Transferencia') && !voucher ? true : false}
             >
               Siguiente
             <ArrowRightOutlined />

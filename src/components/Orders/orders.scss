@@ -1,3 +1,4 @@
+// Ajuste de Formularios
 .form-content {
     h1 {
         font-weight: bold;
@@ -6,5 +7,35 @@
 
     .form-box {
         width: 700px;
+    }
+}
+
+// Manejo del Componente OrderItem
+.container-list {
+    width: 40%;
+    margin: 0 auto;
+    background-color: $gray;
+
+    .container-list-header {
+        align-items: center;
+        display: flex;
+        font-weight: bold;
+        font-size: 18px;
+        justify-content: flex-end;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .container-list-body {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        width: 100%;
+    }
+
+    h1 {
+        font-weight: bold;
     }
 }
