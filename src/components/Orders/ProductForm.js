@@ -122,97 +122,100 @@ const ProductForm = ({ formInstance, dolarValue, style,
 
   // Renderizar componente
   return (
-    <Form
-      form={formInstance}
-      name="ProductForm"
-      layout="vertical"
-      onValuesChange={onChangeValue}
-      className="form-box"
-      style={style}
-    >
-      <Row gutter={(0, 24)}>
-        <Col span={12}>
-          <h1>Productos a Adquirir</h1>
-          <Table
-            columns={columns}
-            dataSource={userProducts}
-            rowKey={(r) => r.code}
-          />
-        </Col>
-        <Col span={12}>
-          <h1>Selección de Productos</h1>
-          <Form.Item
-            label="Nombre del Producto"
-            name="product"
-          >
-            <Select placeholder="Selecciona" showSearch>
-              {products && products.map((option) => {
-                const findProduct = userProducts.find(item => item.code === option.code);
-                if (findProduct) {
-                  return null
-                };
-                return (
-                  <Option key={option.id} value={option.name}>
-                    {option.name}
-                  </Option>
-                );
-              })}
-            </Select>
-          </Form.Item>
-          <Row gutter={(0, 24)}>
-            <Col span="7">
-              <Form.Item
-                label="Cantidad a Adquirir"
-                name="quantity"
-              >
-                <InputNumber
-                  min="1"
-                  max={maxQuantity}
-                  step="1"
-                  precision={0}
-                  style={{ width: '100%' }}
-                  parser={(value) => value.replace(/([^0-9])/g, '') || 1}
-                  disabled={maxQuantity === 0 ? true : false}
-                />
-              </Form.Item>
-            </Col>
-            <Col span="7">
-              <Form.Item
-                label="Unidades Disponibles"
-                name="quantityAvailable"
-              >
-                <InputNumber style={{ width: '100%' }} disabled={true} />
-              </Form.Item>
-            </Col>
-            <Col span="10">
-              <Form.Item
-                label="Precio"
-                name="price"
-              >
-                <InputNumber
-                  style={{ width: '100%' }}
-                  disabled={true}
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Button
-            icon={<PlusOutlined />}
-            type="primary"
-            disabled={!selectedProduct ? true : false}
-            onClick={() => buildProduct()}
-          >
-            Agregar Producto
+    <div className="form-container form-content">
+      <Form
+        form={formInstance}
+        name="ProductForm"
+        layout="vertical"
+        onValuesChange={onChangeValue}
+        className="form-box"
+        style={style}
+      >
+        <Row gutter={(0, 24)}>
+          <Col span={24}>
+            <h1>Selección de Productos</h1>
+            <Form.Item
+              label="Nombre del Producto"
+              name="product"
+            >
+              <Select placeholder="Selecciona" showSearch>
+                {products && products.map((option) => {
+                  const findProduct = userProducts.find(item => item.code === option.code);
+                  if (findProduct) {
+                    return null
+                  };
+                  return (
+                    <Option key={option.id} value={option.name}>
+                      {option.name}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </Form.Item>
+            <Row gutter={(0, 24)}>
+              <Col span="6">
+                <Form.Item
+                  label="Cantidad a Adquirir"
+                  name="quantity"
+                >
+                  <InputNumber
+                    min="1"
+                    max={maxQuantity}
+                    step="1"
+                    precision={0}
+                    style={{ width: '100%' }}
+                    parser={(value) => value.replace(/([^0-9])/g, '') || 1}
+                    disabled={maxQuantity === 0 ? true : false}
+                  />
+                </Form.Item>
+              </Col>
+              <Col span="6">
+                <Form.Item
+                  label="Unidades Disponibles"
+                  name="quantityAvailable"
+                >
+                  <InputNumber style={{ width: '100%' }} disabled={true} />
+                </Form.Item>
+              </Col>
+              <Col span="12">
+                <Form.Item
+                  label="Precio"
+                  name="price"
+                >
+                  <InputNumber
+                    style={{ width: '100%' }}
+                    disabled={true}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Button
+              icon={<PlusOutlined />}
+              type="primary"
+              disabled={!selectedProduct ? true : false}
+              onClick={() => buildProduct()}
+            >
+              Agregar Producto
           </Button>
-        </Col>
-      </Row>
-      <Divider />
-      <Row>
-        <Button type="primary" htmlType="submit" disabled={userProducts.length === 0 ? true : false}>
-          Siguiente
+          </Col>
+          <Divider />
+          <Col span={24}>
+            <h1>Productos a Adquirir</h1>
+            <Table
+              columns={columns}
+              dataSource={userProducts}
+              rowKey={(r) => r.code}
+            />
+          </Col>
+        </Row>
+        <Divider />
+        <Row>
+          <Button type="primary" htmlType="submit" disabled={userProducts.length === 0 ? true : false}>
+            Siguiente
         </Button>
-      </Row>
-    </Form>
+        </Row>
+      </Form>
+    </div>
   );
 };
 
