@@ -25,6 +25,7 @@ const ProductForm = ({ formInstance, dolarValue, style,
       code: selectedProduct.code,
       name: selectedProduct.name,
       quantity: formValues.quantity,
+      image: selectedProduct.image,
       totalBolivares: (selectedProduct.price * formValues.quantity),
       totalDolares: (selectedProduct.price * formValues.quantity) / dolarValue,
     };
@@ -34,6 +35,10 @@ const ProductForm = ({ formInstance, dolarValue, style,
 
     // Limpiar formulario
     formInstance.resetFields();
+
+    // Reinicialziar estados
+    setSelectProduct(null);
+    setMaxQuantiy(0);
   };
 
   /**
@@ -191,7 +196,12 @@ const ProductForm = ({ formInstance, dolarValue, style,
               </Form.Item>
             </Col>
           </Row>
-          <Button icon={<PlusOutlined />} type="primary" onClick={() => buildProduct()}>
+          <Button
+            icon={<PlusOutlined />}
+            type="primary"
+            disabled={!selectedProduct ? true : false}
+            onClick={() => buildProduct()}
+          >
             Agregar Producto
           </Button>
         </Col>

@@ -1,23 +1,38 @@
 // Importar librerías
-import React from 'react';
-import { Row, Col, Form, Input } from 'antd';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+import React, { useContext, useEffect } from 'react';
+import { message } from 'antd';
+import { useLocation } from 'react-router-dom';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
+// Importar rutas
+import * as ROUTES from '../../constants/routes';
+
+// Importar context
+import OrderContext from '../../context/orders/OrderContext';
 
 const OrderItem = () => {
-  const [formInstance] = Form.useForm();
+  // Definir context
+  const orderContext = useContext(OrderContext);
+  const { messageO, order, cleanMessage, getOrder } = orderContext;
+
+  // Definir nueva instancia de location
+  const location = useLocation();
+
+  // Definir effect para setear el valor del pedido en caso de que se haya recargado la página
+  useEffect(() => {
+    if (!order) {
+      getOrder(location.pathname.split('/')[2]);
+      if (messageO) {
+        message.error(messageO);
+        cleanMessage();
+      };
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Renderizar componente
   return (
-    <div className="form-container">
-      <Form
-        form={formInstance}
-        name="StatusForm"
-        layout="vertical"
-        className="form-box"
-      >
-      </Form>
-    </div>
+    <h1>Por definir</h1>
   );
 }
 

@@ -25,18 +25,21 @@ const RecipesList = () => {
 
   // Definir context de recetas
   const recipeContext = useContext(RecipeContext);
-  const { loading, recipes, messageR, cleanMessage, getRecipes, selectedRecipe } = recipeContext;
+  const { loading, recipes, messageR, cleanMessage, getRecipes,
+    selectedRecipe, switchLoading } = recipeContext;
 
   // Definir state
   const [openDeleteModal, setOpenDeleteModal] = useState(null);
 
-  // Definir effect para obtener la información de los productos
+  // Definir effect para obtener la información de las recetas
   useEffect(() => {
+    switchLoading(true);
     getRecipes();
     if (messageR) {
       message.error(messageR);
       cleanMessage();
     };
+    switchLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

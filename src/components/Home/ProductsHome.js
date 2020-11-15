@@ -14,11 +14,7 @@ const CardProduct = ({ product }) => {
     <div className="container-card">
       <Card title={product.name}>
         <Card cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
-          <Meta title="Código" description={product.code} />
-          <Divider />
           <Meta title="Descripción" description={product.description} />
-          <Divider />
-          <Meta title="Unidades Disponibles" description={product.quantityAvailable} />
           <Divider />
           <Meta title="Precio Actual" description={product.price} />
         </Card>

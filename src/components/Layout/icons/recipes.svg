@@ -1,0 +1,10 @@
+<svg id="receipt_long-24px" xmlns="http://www.w3.org/2000/svg" width="31.5" height="31.5" viewBox="0 0 31.5 31.5">
+  <path id="Trazado_679" data-name="Trazado 679" d="M0,0H31.5V31.5H0Z" fill="none"/>
+  <g id="Grupo_476" data-name="Grupo 476" transform="translate(4.5 3)">
+    <path id="Trazado_680" data-name="Trazado 680" d="M16.5,10h-6A1.5,1.5,0,0,1,9,8.5H9A1.5,1.5,0,0,1,10.5,7h6A1.5,1.5,0,0,1,18,8.5h0A1.5,1.5,0,0,1,16.5,10Z" transform="translate(-2.25 -0.75)" fill="#fff"/>
+    <path id="Trazado_681" data-name="Trazado 681" d="M16.5,13h-6A1.5,1.5,0,0,1,9,11.5H9A1.5,1.5,0,0,1,10.5,10h6A1.5,1.5,0,0,1,18,11.5h0A1.5,1.5,0,0,1,16.5,13Z" transform="translate(-2.25 0)" fill="#fff"/>
+    <path id="Trazado_682" data-name="Trazado 682" d="M23.625,3.913,21.75,2,19.875,3.913,18,2,16.125,3.913,14.25,2,12.375,3.913,10.5,2,8.625,3.913,6.75,2V19.85H4.25A1.266,1.266,0,0,0,3,21.125v2.55A3.783,3.783,0,0,0,6.75,27.5h15a3.783,3.783,0,0,0,3.75-3.825V2ZM18,24.95H6.75A1.266,1.266,0,0,1,5.5,23.675V22.4H18Zm5-1.275a1.25,1.25,0,1,1-2.5,0v-2.55a1.266,1.266,0,0,0-1.25-1.275h-10V5.825H23Z" transform="translate(-3 -2)" fill="#fff"/>
+    <circle id="Elipse_39" data-name="Elipse 39" cx="1.5" cy="1.5" r="1.5" transform="translate(15.844 6.25)" fill="#fff"/>
+    <circle id="Elipse_40" data-name="Elipse 40" cx="1.5" cy="1.5" r="1.5" transform="translate(15.844 10)" fill="#fff"/>
+  </g>
+</svg>

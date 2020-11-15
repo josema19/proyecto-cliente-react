@@ -45,13 +45,13 @@ const Dropzone = ({ formCall }) => {
     // Llamar función del State
     try {
       if (formCall === 'profile') {
-        uploadFileA(formData);
+        await uploadFileA(formData);
       } else if (formCall === 'recipe') {
-        uploadFileR(formData);
+        await uploadFileR(formData);
       } else if (formCall === 'product') {
-        uploadFileP(formData);
+        await uploadFileP(formData);
       } else {
-        uploadFileO(formData);
+        await uploadFileO(formData);
       };
       message.success('Archivo subido correctamente');
     } catch (error) {

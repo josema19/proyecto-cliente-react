@@ -42,28 +42,16 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick, use
           <Form.Item
             label="Nombre"
             name="firstName"
-            rules={[
-              {
-                required: true,
-                message: 'Por favor coloque un nombre'
-              },
-            ]}
           >
-            <Input />
+            <Input disabled={true} />
           </Form.Item>
         </Col>
         <Col span="12">
           <Form.Item
             label="Apellido"
             name="lastName"
-            rules={[
-              {
-                required: true,
-                message: 'Por favor coloque un apellido'
-              }
-            ]}
           >
-            <Input />
+            <Input disabled={true} />
           </Form.Item>
         </Col>
         <Col span="12">
@@ -86,14 +74,8 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick, use
           <Form.Item
             label="Dirección"
             name="address"
-            rules={[
-              {
-                required: true,
-                message: 'Por favor coloque una dirección'
-              }
-            ]}
           >
-            <Input />
+            <Input disabled={true} />
           </Form.Item>
         </Col>
         <Col span="4">

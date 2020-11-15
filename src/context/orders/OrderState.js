@@ -11,8 +11,16 @@ import {
   ADD_PRODUCT_LIST,
   CLEAN_MESSAGE,
   DELETE_PRODUCT_LIST,
+  FAILED_GET_ORDER,
+  FAILED_GET_ORDERS,
+  FAILED_GET_USER_ORDERS,
   GET_DOLAR_VALUE,
+  SELECTED_ORDER,
   SUCCESSFUL_UPLOAD_FILE,
+  SUCCESSFUL_CREATE_ORDER,
+  SUCCESSFUL_GET_ORDER,
+  SUCCESSFUL_GET_ORDERS,
+  SUCCESSFUL_GET_USER_ORDERS,
   SWITCH_LOADING,
 } from '../../types';
 
@@ -25,7 +33,9 @@ const OrderState = ({ children }) => {
     dolarValue: 0,
     loading: false,
     messageO: null,
-    pdf: '',
+    orders: [],
+    order: null,
+    voucher: '',
     userProducts: [],
   };
 
@@ -58,9 +68,26 @@ const OrderState = ({ children }) => {
    *
    * @param {*} values
    */
-  const createOrder = (values) => {
-    console.log('Creando pedido...');
-  }
+  const createOrder = async (values) => {
+    // Intentar almacenar la información en la BD
+    try {
+      // Agregar información del voucher
+      values = { ...values, voucher: state.voucher }
+
+      const response = await axiosClient.post('/api/orders', values);
+
+      // Actualizar state del mensaje
+      dispatch({
+        type: SUCCESSFUL_CREATE_ORDER,
+        payload: response.data.msg,
+      });
+
+      return Promise.resolve();
+    } catch (error) {
+      // Enviar mensaje de falla
+      return Promise.reject({ msg: error.response.data.msg });
+    };
+  };
 
   /**
    *
@@ -72,6 +99,71 @@ const OrderState = ({ children }) => {
       type: DELETE_PRODUCT_LIST,
       payload: productId,
     });
+  };
+
+  /**
+   *
+   * @param {*} id
+   * Obtiene la información de un producto.
+   */
+  const getOrder = async (id) => {
+    try {
+      // Obtener respuesta
+      const response = await axiosClient.get(`/api/orders/${id}`);
+
+      // Actualizar información del state
+      dispatch({
+        type: SUCCESSFUL_GET_ORDER,
+        payload: response.data.order,
+      });
+    } catch (error) {
+      dispatch({
+        type: FAILED_GET_ORDER,
+        payload: error.response.data.msg,
+      });
+    };
+  };
+
+  /**
+   * Obtiene la información de todos los pedidos de la aplicación.
+   */
+  const getOrders = async () => {
+    try {
+      // Obtener respuesta
+      const response = await axiosClient.get('/api/orders');
+
+      // Actualizar información del state
+      dispatch({
+        type: SUCCESSFUL_GET_ORDERS,
+        payload: response.data.orders,
+      });
+    } catch (error) {
+      dispatch({
+        type: FAILED_GET_ORDERS,
+        payload: error.response.data.msg
+      });
+    };
+  };
+
+  /**
+   * Obtiene la información de los pedidos asociados al usuario cuyo rol es user.
+   */
+  const getUserOrders = async (userId) => {
+    try {
+      // Obtener respuesta
+      const response = await axiosClient.get(`/api/orders/user/${userId}`);
+
+      // Actualizar información del state
+      dispatch({
+        type: SUCCESSFUL_GET_USER_ORDERS,
+        payload: response.data.orders,
+      });
+    } catch (error) {
+      dispatch({
+        type: FAILED_GET_USER_ORDERS,
+        payload: error.response.data.msg
+      });
+    };
   };
 
   /**
@@ -103,6 +195,18 @@ const OrderState = ({ children }) => {
 
   /**
    *
+   * @param {*} item
+   * Actualiza el state con el pedido seleccionado.
+   */
+  const selectedOrder = (item) => {
+    dispatch({
+      type: SELECTED_ORDER,
+      payload: item,
+    });
+  };
+
+  /**
+   *
    * @param {*} formData
    * Sube una imagen del producto al servidor.
    */
@@ -127,6 +231,7 @@ const OrderState = ({ children }) => {
         dolarValue: state.dolarValue,
         loading: state.loading,
         messageO: state.messageO,
+        order: state.order,
         orders: state.orders,
         userProducts: state.userProducts,
         step: state.step,
@@ -134,8 +239,12 @@ const OrderState = ({ children }) => {
         cleanMessage,
         createOrder,
         deleteProduct,
+        getOrder,
+        getOrders,
+        getUserOrders,
         getDolarValue,
         switchLoading,
+        selectedOrder,
         uploadFileO,
       }}
     >

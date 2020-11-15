@@ -9,6 +9,13 @@ import * as ROUTES from '../../constants/routes';
 // Obtener imagen del logo
 import { ReactComponent as CasaTortaLogo } from './icons/casatorta-logo.svg';
 import { ReactComponent as HomeIcon } from './icons/home.svg';
+import { ReactComponent as OrderIcon } from './icons/orders.svg';
+import { ReactComponent as ProfileIcon } from './icons/profile.svg';
+import { ReactComponent as RecipeIcon } from './icons/recipes.svg';
+import { ReactComponent as ProductIcon } from './icons/products.svg';
+import { ReactComponent as UserIcon } from './icons/users.svg';
+import { ReactComponent as SignOutIcon } from './icons/signOut.svg';
+
 
 // Importar context
 import AuthContext from '../../context/auth/AuthContext';
@@ -67,41 +74,41 @@ const Sidebar = () => {
                     </Menu.Item>
                     <Menu.Item key={ROUTES.ORDERS} className="side-item">
                         <Link to={ROUTES.ORDERS}>
-                            <HomeIcon />
+                            <OrderIcon />
                             {siderExpanded && <p>Pedidos</p>}
                         </Link>
                     </Menu.Item>
                     {userRole && userRole === 'user' && (
                         <Menu.Item key={ROUTES.PROFILE} className="side-item">
                             <Link to={ROUTES.PROFILE}>
-                                <HomeIcon />
+                                <ProfileIcon />
                                 {siderExpanded && <p>Perfil</p>}
                             </Link>
                         </Menu.Item>
                     )}
                     <Menu.Item key={ROUTES.RECIPES} className="side-item">
                         <Link to={ROUTES.RECIPES}>
-                            <HomeIcon />
+                            <RecipeIcon />
                             {siderExpanded && <p>Recetas</p>}
                         </Link>
                     </Menu.Item>
                     <Menu.Item key={ROUTES.PRODUCTS} className="side-item">
                         <Link to={ROUTES.PRODUCTS}>
-                            <HomeIcon />
+                            <ProductIcon />
                             {siderExpanded && <p>Productos</p>}
                         </Link>
                     </Menu.Item>
                     {userRole && userRole === 'admin' && (
                         <Menu.Item key={ROUTES.USERS} className="side-item">
                             <Link to={ROUTES.USERS}>
-                                <HomeIcon />
+                                <UserIcon />
                                 {siderExpanded && <p>Usuarios</p>}
                             </Link>
                         </Menu.Item>
                     )}
                     <Menu.Item key={ROUTES.SIGN_OUT} className="side-item sign-out-item" onClick={() => logout()}>
                         <Link to={ROUTES.HOME}>
-                            <HomeIcon />
+                            <SignOutIcon />
                             {siderExpanded && <p>Cerrar Sesión</p>}
                         </Link>
                     </Menu.Item>

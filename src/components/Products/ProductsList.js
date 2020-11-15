@@ -26,18 +26,20 @@ const ProductsList = () => {
 
   // Definir context de products
   const productContext = useContext(ProductContext);
-  const { loading, products, messageP, cleanMessage, getProducts, selectedProduct } = productContext;
+  const { loading, products, messageP, cleanMessage, getProducts, selectedProduct, switchLoading } = productContext;
 
   // Definir state
   const [openDeleteModal, setOpenDeleteModal] = useState(null);
 
   // Definir effect para obtener la información de los productos
   useEffect(() => {
+    switchLoading(true);
     getProducts();
     if (messageP) {
       message.error(messageP);
       cleanMessage();
     };
+    switchLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

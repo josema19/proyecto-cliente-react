@@ -2,6 +2,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { animateScroll } from 'react-scroll';
 import { Divider, Form, message, Steps } from 'antd';
+import { useHistory } from 'react-router-dom';
 
 // Importar otros componentes
 import ProductForm from './ProductForm';
@@ -13,14 +14,17 @@ import OrderContext from '../../context/orders/OrderContext';
 import ProductContext from '../../context/products/ProductContext';
 import AuthContext from '../../context/auth/AuthContext';
 
+// Importar rutas
+import * as ROUTES from '../../constants/routes';
+
 // Importar subcomponente el componente Steps
 const { Step } = Steps;
 
 const CreateOrder = () => {
   // Definir context
   const orderContext = useContext(OrderContext);
-  const { dolarValue, loading, userProducts, addProduct, deleteProduct,
-    getDolarValue, createOrder, switchLoading } = orderContext;
+  const { dolarValue, messageO, loading, voucher, userProducts, addProduct, deleteProduct,
+    getDolarValue, cleanMessage, createOrder, switchLoading } = orderContext;
 
   const productContext = useContext(ProductContext);
   const { products, getProducts } = productContext;
@@ -30,6 +34,9 @@ const CreateOrder = () => {
 
   // Definir state local
   const [currentStep, setCurrentStep] = useState(0);
+
+  // Definir nueva instancia de useHistory
+  const history = useHistory();
 
   // Crear instancias de useForm
   const [productFormInstance] = Form.useForm();
@@ -42,6 +49,15 @@ const CreateOrder = () => {
     getProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Definir effect para redireccionar
+  useEffect(() => {
+    if (messageO && !loading) {
+      message.success(messageO);
+      history.push(ROUTES.ORDERS);
+      cleanMessage();
+    };
+  }, [messageO, loading, history, cleanMessage]);
 
   // Definir funciones
   /**
@@ -58,14 +74,23 @@ const CreateOrder = () => {
 
       try {
         // Obtener información de los formularios
-        // const paymentFormInfo = paymentFormInstance.getFieldValue();
-        // const userFormInfo = userFormInstance.getFieldsValue();
+        const { paymentType, coinType } = paymentFormInstance.getFieldValue();
+        const { totalBolivares, totalDolares, totalProducts } = userFormInstance.getFieldsValue();
 
         // Construir objeto
-        const order = {};
+        const order = {
+          coinType,
+          products: userProducts,
+          paymentType,
+          totalProducts,
+          totalBolivares,
+          totalDolares,
+          state: 'PENDIENTE',
+          UserId: user.id,
+        };
 
         // Llamar a la función
-        createOrder(order);
+        await createOrder(order);
       } catch (error) {
         message(error.msg);
       };
@@ -103,6 +128,7 @@ const CreateOrder = () => {
         formInstance={paymentFormInstance}
         style={{ display: currentStep === 1 ? 'block' : 'none' }}
         handlePreviousButtonClick={handlePreviousButtonClick}
+        voucher={voucher}
       />
       <UserForm
         formInstance={userFormInstance}

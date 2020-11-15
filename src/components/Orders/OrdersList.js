@@ -9,19 +9,39 @@ import * as ROUTES from '../../constants/routes';
 
 // Importar context
 import OrderContext from '../../context/orders/OrderContext';
+import AuthContext from '../../context/auth/AuthContext';
 
 const OrdersList = () => {
-  // Definir context
+  // Definir context de pedidos
   const orderContext = useContext(OrderContext);
-  const { loading, messageO, orders, cleanMessage } = orderContext;
+  const { loading, messageO, orders, cleanMessage, getOrders,
+    switchLoading, selectedOrder, getUserOrders } = orderContext;
 
-  // Definir effect para obtener la información de los productos
+  // Definir context de usuario
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+
+  // Definir effect para obtener la información de los productos según
+  // el rol del usuario
   useEffect(() => {
-    // getOrders();
+    // Habilitar spinner de carga
+    switchLoading(true);
+
+    // Llamar a una función u otra según el rol del usuario
+    if (user.role === 'user') {
+      getUserOrders(user.id);
+    } else {
+      getOrders();
+    };
+
+    // Mostrar mensaje en caso de error
     if (messageO) {
       message.error(messageO);
       cleanMessage();
     };
+
+    //  Inhabilitar spinner de carga
+    switchLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -34,8 +54,8 @@ const OrdersList = () => {
   const renderActions = (_, record) => {
     return (
       <Space>
-        <Link to={`${ROUTES.ORDERS}/${record.code}`}>
-          {/* <EyeOutlined title="Ver" onClick={() => selectedOrder(record)} /> */}
+        <Link to={`${ROUTES.ORDERS}/${record.id}`}>
+          <EyeOutlined title="Ver" onClick={() => selectedOrder(record)} />
         </Link>
       </Space>
     );
@@ -44,17 +64,67 @@ const OrdersList = () => {
   // Definir columnas de la tabla
   const columns = [
     {
-      title: 'NOMBRE',
-      dataIndex: 'name',
-      key: 'name',
-      render: (_, record) => record.name,
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      title: 'CÓDIGO PEDIDO',
+      dataIndex: 'id',
+      key: 'id',
+      render: (_, record) => record.id,
+      sorter: (a, b) => a.id - b.id,
+      show: true,
+    },
+    {
+      title: 'ESTADO',
+      dataIndex: 'state',
+      key: 'state',
+      render: (_, record) => record.state,
+      sorter: (a, b) => a.state.localeCompare(b.state),
+      show: true,
+    },
+    {
+      title: 'MONEDA UTILIZADA',
+      dataIndex: 'coin',
+      key: 'coin',
+      render: (_, record) => record.coinType,
+      sorter: (a, b) => a.coinType.localeCompare(b.coinType),
+      show: true,
+    },
+    {
+      title: 'PRODUCTOS ADQUIRIDOS',
+      dataIndex: 'products',
+      key: 'products',
+      render: (_, record) => record.totalProducts,
+      sorter: (a, b) => a.totalProducts - b.totalProducts,
+      show: true,
+    },
+    {
+      title: 'TOTAL (BS)',
+      dataIndex: 'totalBolivares',
+      key: 'totalBolivares',
+      render: (_, record) => record.totalBolivares,
+      sorter: (a, b) => a.totalBolivares - b.totalBolivares,
+      show: true,
+    },
+    {
+      title: 'TOTAL ($)',
+      dataIndex: 'totalDolares',
+      key: 'totalDolares',
+      render: (_, record) => record.totalDolares,
+      sorter: (a, b) => a.totalDolares - b.totalDolares,
+      show: true,
+    },
+    {
+      title: 'USUARIO',
+      dataIndex: 'userId',
+      key: 'userId',
+      render: (_, record) => record.UserId,
+      sorter: (a, b) => a.UserId - b.UserId,
+      show: user.role === 'admin' ? true : false,
     },
     {
       title: 'ACCIONES',
       dataIndex: 'actions',
       key: 'actions',
       render: renderActions,
+      show: true,
     },
   ];
 
@@ -77,16 +147,12 @@ const OrdersList = () => {
       <div className="users-list-content">
         <Table
           loading={loading}
-          columns={columns}
+          columns={columns.filter((item) => item.show)}
           dataSource={orders}
-          rowKey={(r) => r.code}
+          rowKey={(r) => r.id}
         />
       </div>
     </div>
-
-
-
-
   );
 }
 

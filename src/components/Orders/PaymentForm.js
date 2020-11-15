@@ -1,5 +1,5 @@
 // Importar librerías
-import React from 'react';
+import React, { useState } from 'react';
 import { Divider, Button, Row, Col, Form, Select } from 'antd';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 
@@ -21,7 +21,10 @@ const coinType = [
 // Definir subcomponente Option
 const { Option } = Select;
 
-const PaymentForm = ({ formInstance, style, handlePreviousButtonClick }) => {
+const PaymentForm = ({ formInstance, style, voucher, handlePreviousButtonClick }) => {
+  // Definir State
+  const [selectedPayment, setSelectedPayment] = useState('');
+
   // Renderizar componente
   return (
     <Form
@@ -43,7 +46,7 @@ const PaymentForm = ({ formInstance, style, handlePreviousButtonClick }) => {
               }
             ]}
           >
-            <Select>
+            <Select onSelect={(key) => setSelectedPayment(key)}>
               {paymentType.map((option) => (
                 <Option key={option.value} value={option.value}>
                   {option.label}
@@ -55,11 +58,11 @@ const PaymentForm = ({ formInstance, style, handlePreviousButtonClick }) => {
         <Col span="12">
           <Form.Item
             label="Tipo de Moneda"
-            name="typeCoin"
+            name="coinType"
             rules={[
               {
                 required: true,
-                message: 'Seleccione el tipo de moneda'
+                message: 'Por favor seleccione el tipo de moneda'
               }
             ]}
           >
@@ -74,7 +77,7 @@ const PaymentForm = ({ formInstance, style, handlePreviousButtonClick }) => {
         </Col>
         <Col span="24">
           <Form.Item
-            label="Comprobante de Pago (Si Aplica)"
+            label="Comprobante de Pago (Aplica sólo para transferencias)"
           >
             <Dropzone />
           </Form.Item>
@@ -92,7 +95,11 @@ const PaymentForm = ({ formInstance, style, handlePreviousButtonClick }) => {
           </Button>
         </Col>
         <Col>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={(selectedPayment === 'transferencia') && !voucher ? true : false}
+          >
             Siguiente
             <ArrowRightOutlined />
           </Button>
