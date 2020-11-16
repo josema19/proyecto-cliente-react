@@ -87,7 +87,9 @@
 }
 
 .container-us-img {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     img {
         height: 400px;

@@ -2,6 +2,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Carousel, Card, Divider, Row, Col } from 'antd';
 
+// Importar utilidades
+import putFormat from '../../utils/putFormat'
+
 // Importar context
 import ProductContext from '../../context/products/ProductContext';
 
@@ -16,7 +19,7 @@ const CardProduct = ({ product }) => {
         <Card cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
           <Meta title="Descripción" description={product.description} />
           <Divider />
-          <Meta title="Precio Actual" description={product.price} />
+          <Meta title="Precio Actual" description={putFormat(product.price, 2)} />
         </Card>
       </Card>
     </div>

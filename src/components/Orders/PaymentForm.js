@@ -24,6 +24,52 @@ const { Option } = Select;
 const PaymentForm = ({ formInstance, style, voucher, handlePreviousButtonClick }) => {
   // Definir State
   const [selectedPayment, setSelectedPayment] = useState('');
+  const [selectedCoin, setSelectedCoin] = useState('');
+
+  const TransferInformation = () => (
+    <div className="container-transfer-info">
+      {selectedCoin === 'Bolivar' ? (
+        <>
+          <div className="container-bank-header">
+            <h2>Datos para Transferencias Bancarias</h2>
+            <p>Inversiones Casa Torta Candelaria.C.A</p>
+            <p>Correo: tortacandelaria@gmail.com</p>
+            <p>Rif: J-40748734-5</p>
+          </div>
+          <Divider />
+
+          <Row>
+            <Col span={12}>
+              <p>Banco Fondo Común</p>
+              <p>Cuenta: <span>0151-0049-4510-0049-5814</span></p>
+              <p>Banco Activo</p>
+              <p>Cuenta: <span>0171-0005-0760-0205-7351</span></p>
+              <p>Banco Banesco</p>
+              <p>Cuenta: <span>0134-0440-2644-0103-9059</span></p>
+            </Col>
+            <Col span={12}>
+              <p>Banco Fondo Común(Pago Móvil)</p>
+              <p>Código: <span>0151</span></p>
+              <p>Celular: <span>0424-200-91-19 / 0412-295-71-43</span></p>
+            </Col>
+          </Row>
+        </>
+      ) : (
+          <div className="container-zelle">
+            <h2>Datos para Transferencias vía ZELLE</h2>
+            <Divider />
+            <p>Correo: <span>gabrielgoncalves33@gmail.com</span></p>
+            <p>Nombre: <span>Juan Goncalves</span></p>
+          </div>
+        )}
+    </div>
+  );
+
+
+
+
+
+
 
   // Renderizar componente
   return (
@@ -67,7 +113,7 @@ const PaymentForm = ({ formInstance, style, voucher, handlePreviousButtonClick }
                 }
               ]}
             >
-              <Select>
+              <Select onSelect={(key) => setSelectedCoin(key)}>
                 {coinType.map((option) => (
                   <Option key={option.value} value={option.value}>
                     {option.label}
@@ -75,6 +121,9 @@ const PaymentForm = ({ formInstance, style, voucher, handlePreviousButtonClick }
                 ))}
               </Select>
             </Form.Item>
+          </Col>
+          <Col span="24">
+            {selectedPayment === 'Transferencia' && selectedCoin !== '' && <TransferInformation />}
           </Col>
           <Col span="24">
             <Form.Item

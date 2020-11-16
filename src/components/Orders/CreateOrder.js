@@ -23,8 +23,8 @@ const { Step } = Steps;
 const CreateOrder = () => {
   // Definir context
   const orderContext = useContext(OrderContext);
-  const { dolarValue, messageO, loading, showModal, voucher, userProducts, addProduct, deleteProduct,
-    getDolarValue, cleanMessage, createOrder, openModal, switchLoading } = orderContext;
+  const { dolarValue, messageO, loading, voucher, userProducts, addProduct, deleteProduct,
+    getDolarValue, cleanMessage, createOrder, switchLoading } = orderContext;
 
   const productContext = useContext(ProductContext);
   const { products, getProducts } = productContext;

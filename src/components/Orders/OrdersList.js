@@ -4,6 +4,9 @@ import { EyeOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { Table, Button, Space, Divider, message } from 'antd';
 import { Link } from 'react-router-dom';
 
+// Importar utilidades
+import putFormat from '../../utils/putFormat'
+
 // Importar otros componentes
 import EditOrder from './EditOrder';
 
@@ -113,24 +116,28 @@ const OrdersList = () => {
       title: 'TOTAL (BS)',
       dataIndex: 'totalBolivares',
       key: 'totalBolivares',
-      render: (_, record) => record.totalBolivares,
-      sorter: (a, b) => a.totalBolivares - b.totalBolivares,
+      render: (_, record) => putFormat(record.totalBolivares, 2),
+      sorter: (a, b) => putFormat(a.totalBolivares, 2) - putFormat(b.totalBolivares, 2),
       show: true,
     },
     {
       title: 'TOTAL ($)',
       dataIndex: 'totalDolares',
       key: 'totalDolares',
-      render: (_, record) => record.totalDolares,
-      sorter: (a, b) => a.totalDolares - b.totalDolares,
+      render: (_, record) => putFormat(record.totalDolares, 2),
+      sorter: (a, b) => putFormat(a.totalDolares, 2) - putFormat(b.totalDolares, 2),
       show: true,
     },
     {
       title: 'USUARIO',
       dataIndex: 'userId',
       key: 'userId',
-      render: (_, record) => record.User.firstName + ' ' + record.User.lastName,
-      sorter: (a, b) => (a.User.firstName + ' ' + a.User.lastName).localeCompare(b.User.firstName + ' ' + b.User.lastName),
+      render: (_, record) => record.User ? record.User.firstName + ' ' + record.User.lastName : '-',
+      sorter: (a, b) => {
+        let userA = a.User ? a.User.firstName + ' ' + a.User.lastName : '-';
+        let userB = b.User ? b.User.firstName + ' ' + b.User.lastName : '-';
+        return userA.localeCompare(userB);
+      },
       show: user.role === 'admin' ? true : false,
     },
     {

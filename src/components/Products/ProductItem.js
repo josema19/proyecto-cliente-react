@@ -4,7 +4,11 @@ import { Card, Divider, Button, message } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
-// Importar context
+// Importar utilidades
+import putFormat from '../../utils/putFormat'
+
+// Importar context de auth y product
+import AuthContext from '../../context/auth/AuthContext';
 import ProductContext from '../../context/products/ProductContext';
 
 // Importar rutas
@@ -14,7 +18,11 @@ import * as ROUTES from '../../constants/routes';
 const { Meta } = Card;
 
 const ProductItem = () => {
-  // Definir context
+  // Definir context de usuario autenticado
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+
+  // Definir context de products
   const productContext = useContext(ProductContext);
   const { messageP, product, cleanMessage, getProduct } = productContext;
 
@@ -45,18 +53,22 @@ const ProductItem = () => {
         </div>
         <Card title={product.name}>
           <Card cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
-            <Meta title="Código" description={product.code} />
-            <Divider />
+            {user.role === 'admin' && (
+              <>
+                <Meta title="Código" description={product.code} />
+                <Divider />
+              </>
+            )}
             <Meta title="Descripción" description={product.description} />
             <Divider />
-            <Meta title="Unidades Disponibles" description={product.quantityAvailable} />
+            <Meta title="Unidades Disponibles" description={putFormat(product.quantityAvailable)} />
             <Divider />
-            <Meta title="Precio Actual" description={product.price} />
+            <Meta title="Precio Actual" description={putFormat(product.price, 2)} />
           </Card>
         </Card>
       </div>
     )
   );
-}
+};
 
 export default ProductItem;

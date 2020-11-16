@@ -1,7 +1,10 @@
 // Importar librerías
 import React, { useState, useEffect } from 'react';
-import { Button, Row, Col, Form, Input, Checkbox } from 'antd';
+import { Button, Row, Col, Form, Input, Checkbox, InputNumber } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+
+// Importar utilidades
+import putFormat from '../../utils/putFormat'
 
 // Definir opciones del checkbox
 const serviceOptions = [
@@ -33,7 +36,7 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
       address: user.address,
       totalProducts: userProducts.length,
       totalBolivares: totalBolivares,
-      totalDolares: Math.round(totalDolares),
+      totalDolares: totalDolares,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProducts]);
@@ -116,7 +119,11 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
               label="Número Productos"
               name="totalProducts"
             >
-              <Input disabled={true} />
+              <InputNumber
+                formatter={(value) => putFormat(value)}
+                style={{ width: '100%' }}
+                disabled={true}
+              />
             </Form.Item>
           </Col>
           <Col span="9">
@@ -124,7 +131,11 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
               label="Total Bolívares"
               name="totalBolivares"
             >
-              <Input disabled={true} />
+              <InputNumber
+                formatter={(value) => putFormat(value, 2)}
+                style={{ width: '100%' }}
+                disabled={true}
+              />
             </Form.Item>
           </Col>
           <Col span="9">
@@ -132,7 +143,11 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
               label="Total Dólares"
               name="totalDolares"
             >
-              <Input disabled={true} />
+              <InputNumber
+                formatter={(value) => putFormat(value, 2)}
+                style={{ width: '100%' }}
+                disabled={true}
+              />
             </Form.Item>
           </Col>
           <Col span={24}>

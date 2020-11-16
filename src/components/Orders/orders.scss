@@ -39,3 +39,34 @@
         font-weight: bold;
     }
 }
+
+// Componente PaymenteForm
+.container-transfer-info {
+    border: 2px dashed $black;
+    padding: 15px;
+    p {
+        font-weight: bold;
+        margin: 0;
+    }
+
+    span {
+        font-weight: normal;
+    }
+
+    // text-align: center;
+
+    .container-bank-header {
+        h2 {
+            font-weight: bold;
+        }
+
+        text-align: center;
+    }
+
+    .container-zelle {
+        h2 {
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+}

@@ -3,6 +3,9 @@ import React, { useContext, useEffect } from 'react';
 import { Row, Col, Form, Input, InputNumber, Button, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 
+// Importar utilidades
+import putFormat from '../../utils/putFormat'
+
 // Importar context
 import ProductContext from '../../context/products/ProductContext';
 
@@ -126,6 +129,7 @@ const CreateProduct = () => {
                 min="1"
                 step="100000"
                 style={{ width: '100%' }}
+                formatter={(value) => putFormat(value)}
                 parser={(value) => value.replace(/([^0-9])/g, '') || 1}
               />
             </Form.Item>
@@ -145,6 +149,7 @@ const CreateProduct = () => {
                 min="1"
                 step="100"
                 precision={0}
+                formatter={(value) => putFormat(value)}
                 style={{ width: '100%' }}
                 parser={(value) => value.replace(/([^0-9])/g, '') || 1}
               />

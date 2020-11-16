@@ -4,6 +4,9 @@ import { message, List, Button, Avatar } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
+// Importar utilidades
+import putFormat from '../../utils/putFormat'
+
 // Importar rutas
 import * as ROUTES from '../../constants/routes';
 
@@ -37,12 +40,6 @@ const OrderItem = () => {
     </div>
   );
 
-  // // Definir Footer Component para renderizar
-  // const Footer = () => (
-  //   <h1>Footer</h1>
-  //   <p></p>
-  // );
-
   // Renderizar componente
   return (
     order && (
@@ -69,7 +66,7 @@ const OrderItem = () => {
                   </div>
                   <div>
                     <h1>Cantidad Adquirida</h1>
-                    <p>{item.quantity}</p>
+                    <p>{putFormat(item.quantity)}</p>
                   </div>
                   <div>
                     <h1>Imagen</h1>

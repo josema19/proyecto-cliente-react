@@ -1,29 +1,8 @@
 // Importar librerías
 import React from 'react';
 import { Row, Col } from 'antd';
-import GoogleMapReact from 'google-map-react';
-
-// Definir coordenadas y zoom por defecto para el componente GoogleMapReact
-const DEFAULT_CENTER = {
-  lat: 10.5048301,
-  lng: -66.9086053,
-};
-const DEFAULT_ZOOM = 18;
 
 const Us = () => {
-  /**
-   *
-   * @param {*} map
-   * @param {*} maps
-   * Agrega diversas configuraciones al mapa de google.
-   */
-  const handleApiLoaded = (map, maps) => {
-    new maps.Marker({
-      position: DEFAULT_CENTER,
-      map
-    })
-  };
-
   // Renderizar componente
   return (
     <>

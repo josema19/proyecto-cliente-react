@@ -60,7 +60,7 @@ const AuthState = ({ children }) => {
       console.log(error);
       dispatch({
         type: FAILED_AUTHENTICATED_USER,
-        payload: error.response.data.msg,
+        payload: error.response.data.msg || 'No hubo respuesta del servidor',
       });
     };
   };

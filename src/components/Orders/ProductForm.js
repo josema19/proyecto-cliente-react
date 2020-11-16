@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { Divider, Table, Button, Space, Row, Col, Form, Select, InputNumber } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 
+// Importar utilidades
+import putFormat from '../../utils/putFormat'
+
 // Definir subcomponente Option
 const { Option } = Select;
 
@@ -26,9 +29,11 @@ const ProductForm = ({ formInstance, dolarValue, style,
       name: selectedProduct.name,
       quantity: formValues.quantity,
       image: selectedProduct.image,
-      totalBolivares: (selectedProduct.price * formValues.quantity),
-      totalDolares: (selectedProduct.price * formValues.quantity) / dolarValue,
+      totalBolivares: selectedProduct.price * formValues.quantity,
+      totalDolares: selectedProduct.price * formValues.quantity / dolarValue,
     };
+
+    console.log(newProduct);
 
     // Agregar producto
     addProduct(newProduct);
@@ -102,15 +107,15 @@ const ProductForm = ({ formInstance, dolarValue, style,
       title: 'CANTIDAD',
       dataIndex: 'quantity',
       key: 'quantity',
-      render: (_, record) => record.quantity,
-      sorter: (a, b) => a.quantity - b.quantity,
+      render: (_, record) => putFormat(record.quantity),
+      sorter: (a, b) => putFormat(a.quantity) - putFormat(b.quantity),
     },
     {
       title: 'TOTAL',
       dataIndex: 'totalBolivares',
       key: 'total',
-      render: (_, record) => record.totalBolivares,
-      sorter: (a, b) => a.totalBolivares - b.totalBolivares,
+      render: (_, record) => putFormat(record.totalBolivares, 2),
+      sorter: (a, b) => putFormat(a.totalBolivares, 2) - putFormat(b.totalBolivares, 2),
     },
     {
       title: 'ELIMINAR',
@@ -141,7 +146,7 @@ const ProductForm = ({ formInstance, dolarValue, style,
               <Select placeholder="Selecciona" showSearch>
                 {products && products.map((option) => {
                   const findProduct = userProducts.find(item => item.code === option.code);
-                  if (findProduct) {
+                  if (parseInt(option.quantityAvailable) === 0 || findProduct) {
                     return null
                   };
                   return (
@@ -163,6 +168,7 @@ const ProductForm = ({ formInstance, dolarValue, style,
                     max={maxQuantity}
                     step="1"
                     precision={0}
+                    formatter={(value) => putFormat(value)}
                     style={{ width: '100%' }}
                     parser={(value) => value.replace(/([^0-9])/g, '') || 1}
                     disabled={maxQuantity === 0 ? true : false}
@@ -174,7 +180,11 @@ const ProductForm = ({ formInstance, dolarValue, style,
                   label="Unidades Disponibles"
                   name="quantityAvailable"
                 >
-                  <InputNumber style={{ width: '100%' }} disabled={true} />
+                  <InputNumber
+                    style={{ width: '100%' }}
+                    disabled={true}
+                    formatter={(value) => putFormat(value)}
+                  />
                 </Form.Item>
               </Col>
               <Col span="12">
@@ -185,6 +195,7 @@ const ProductForm = ({ formInstance, dolarValue, style,
                   <InputNumber
                     style={{ width: '100%' }}
                     disabled={true}
+                    formatter={(value) => putFormat(value)}
                   />
                 </Form.Item>
               </Col>
