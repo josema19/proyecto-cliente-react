@@ -15,12 +15,14 @@ import {
   FAILED_GET_ORDERS,
   FAILED_GET_USER_ORDERS,
   GET_DOLAR_VALUE,
+  OPEN_MODAL,
   SELECTED_ORDER,
   SUCCESSFUL_UPLOAD_FILE,
   SUCCESSFUL_CREATE_ORDER,
   SUCCESSFUL_GET_ORDER,
   SUCCESSFUL_GET_ORDERS,
   SUCCESSFUL_GET_USER_ORDERS,
+  SUCCESSFUL_EDIT_ORDER,
   SWITCH_LOADING,
 } from '../../types';
 
@@ -35,6 +37,7 @@ const OrderState = ({ children }) => {
     messageO: null,
     orders: [],
     order: null,
+    showModal: false,
     voucher: '',
     userProducts: [],
   };
@@ -74,12 +77,12 @@ const OrderState = ({ children }) => {
       // Agregar información del voucher
       values = { ...values, voucher: state.voucher }
 
-      const response = await axiosClient.post('/api/orders', values);
+      await axiosClient.post('/api/orders', values);
 
       // Actualizar state del mensaje
       dispatch({
         type: SUCCESSFUL_CREATE_ORDER,
-        payload: response.data.msg,
+        payload: 'Gracias por su compra.' + (values.service === 'Tienda' ? ' Lo esperamos!' : 'Nos estaremos comunicando con usted!'),
       });
 
       return Promise.resolve();
@@ -99,6 +102,34 @@ const OrderState = ({ children }) => {
       type: DELETE_PRODUCT_LIST,
       payload: productId,
     });
+  };
+
+  /**
+   *
+   * @param {*} values
+   * Edita por el momento el estado de una solicitud.
+   */
+  const editOrder = async (values) => {
+    try {
+      // Obtener respuesta
+      const response = await axiosClient.put(`/api/orders/${state.order.id}`, values);
+
+      // Actualizar información del state
+      dispatch({
+        type: SUCCESSFUL_EDIT_ORDER,
+        payload: {
+          state: values.state,
+          id: state.order.id,
+          msg: response.data.msg,
+        },
+      });
+
+      // Devolver Promesa
+      return Promise.resolve();
+    } catch (error) {
+      // Enviar mensaje de falla
+      return Promise.reject({ msg: error.response.data.msg });
+    };
   };
 
   /**
@@ -182,6 +213,19 @@ const OrderState = ({ children }) => {
   };
 
   /**
+   * Habilita el modal para editar el estado de una solicitud.
+   */
+  const openModal = (item, bool) => {
+    dispatch({
+      type: OPEN_MODAL,
+      payload: {
+        order: item,
+        bool,
+      },
+    });
+  };
+
+  /**
    *
    * @param {*} bool
    * Cambia de true a false y viceversa la carga de un componente.
@@ -235,14 +279,17 @@ const OrderState = ({ children }) => {
         orders: state.orders,
         userProducts: state.userProducts,
         step: state.step,
+        showModal: state.showModal,
         addProduct,
         cleanMessage,
         createOrder,
         deleteProduct,
+        editOrder,
         getOrder,
         getOrders,
         getUserOrders,
         getDolarValue,
+        openModal,
         switchLoading,
         selectedOrder,
         uploadFileO,

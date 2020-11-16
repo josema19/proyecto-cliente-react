@@ -1,8 +1,11 @@
 // Importar librerías
 import React, { useContext, useEffect } from 'react';
-import { EyeOutlined, PlusOutlined } from '@ant-design/icons';
+import { EyeOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { Table, Button, Space, Divider, message } from 'antd';
 import { Link } from 'react-router-dom';
+
+// Importar otros componentes
+import EditOrder from './EditOrder';
 
 // Importar rutas
 import * as ROUTES from '../../constants/routes';
@@ -14,8 +17,8 @@ import AuthContext from '../../context/auth/AuthContext';
 const OrdersList = () => {
   // Definir context de pedidos
   const orderContext = useContext(OrderContext);
-  const { loading, messageO, orders, cleanMessage, getOrders,
-    switchLoading, selectedOrder, getUserOrders } = orderContext;
+  const { loading, messageO, orders, showModal, cleanMessage, getOrders,
+    openModal, switchLoading, selectedOrder, getUserOrders } = orderContext;
 
   // Definir context de usuario
   const authContext = useContext(AuthContext);
@@ -57,6 +60,9 @@ const OrdersList = () => {
         <Link to={`${ROUTES.ORDERS}/${record.id}`}>
           <EyeOutlined title="Ver" onClick={() => selectedOrder(record)} />
         </Link>
+        {user.role === 'admin' && (
+          <EditOutlined title="Editar" onClick={() => openModal(record, true)} />
+        )}
       </Space>
     );
   };
@@ -64,7 +70,7 @@ const OrdersList = () => {
   // Definir columnas de la tabla
   const columns = [
     {
-      title: 'CÓDIGO PEDIDO',
+      title: 'CÓDIGO',
       dataIndex: 'id',
       key: 'id',
       render: (_, record) => record.id,
@@ -77,6 +83,14 @@ const OrdersList = () => {
       key: 'state',
       render: (_, record) => record.state,
       sorter: (a, b) => a.state.localeCompare(b.state),
+      show: true,
+    },
+    {
+      title: 'RETIRAR',
+      dataIndex: 'service',
+      key: 'service',
+      render: (_, record) => record.service,
+      sorter: (a, b) => a.service.localeCompare(b.service),
       show: true,
     },
     {
@@ -124,7 +138,7 @@ const OrdersList = () => {
       dataIndex: 'actions',
       key: 'actions',
       render: renderActions,
-      show: user.role === 'user' ? true : false,
+      show: true,
     },
   ];
 
@@ -132,16 +146,19 @@ const OrdersList = () => {
   // Renderizar componente
   return (
     <div className="users-list">
+      {showModal && <EditOrder />}
       <div className="users-list-title">
         <h1>Pedidos Realizados</h1>
-        <Link to={ROUTES.ORDER_CREATE}>
-          <Button
-            type="primary"
-            icon={<PlusOutlined title="Nuevo" />}
-          >
-            Nuevo
-          </Button>
-        </Link>
+        {user.role === 'user' && (
+          <Link to={ROUTES.ORDER_CREATE}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined title="Nuevo" />}
+            >
+              Nuevo
+            </Button>
+          </Link>
+        )}
       </div>
       <Divider />
       <div className="users-list-content">

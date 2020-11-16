@@ -120,6 +120,7 @@ const Signup = () => {
                   <Option value="V">V</Option>
                   <Option value="E">E</Option>
                   <Option value="G">G</Option>
+                  <Option value="J">J</Option>
                 </Select>
               </Form.Item>
               <Form.Item

@@ -1,6 +1,6 @@
 // Importar librerías
-import React, { useEffect, useContext } from 'react';
-import { Carousel, Card, Divider } from 'antd';
+import React, { useState, useEffect, useContext } from 'react';
+import { Carousel, Card, Divider, Row, Col } from 'antd';
 
 // Importar context
 import RecipeContext from '../../context/recipes/RecipeContext.js';
@@ -28,24 +28,60 @@ const RecipesHome = () => {
   const recipeContext = useContext(RecipeContext);
   const { recipes, getRecipes } = recipeContext;
 
-  // Definir effect para setear los productos y las recetas
+  // Definir state
+  const [recipesLeft, setRecipesLeft] = useState([]);
+  const [recipesRight, setRecipesRight] = useState([]);
+
+  // Definir effect para setear las recetas
   useEffect(() => {
     getRecipes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Definir effect para setear las recetas en dos arreglos
+  useEffect(() => {
+    if (recipes) {
+      // Dividir recetas
+      let itemsLeft = [];
+      let itemsRight = [];
+      recipes.forEach(item => {
+        if (itemsLeft.length !== 5 && itemsRight.length !== 5) {
+          itemsLeft.length === itemsRight.length ? itemsLeft.push(item) : itemsRight.push(item);
+        }
+      });
+
+      // Setear valores
+      setRecipesLeft(itemsLeft);
+      setRecipesRight(itemsRight);
+    };
+  }, [recipes]);
+
   // Renderizar componente
   return (
     <>
       <h1>Nuestras Recetas</h1>
-      <div className="carousel-container">
-        <Carousel autoplay className="carousel-content" effect="fade">
-          {recipes.map(recipe => (
-            <CardRecipe key={recipe.id} recipe={recipe} />
-          )
-          )}
-        </Carousel>
-      </div>
+      <Row>
+        <Col span={12}>
+          <div className="carousel-container">
+            <Carousel autoplay effect="fade">
+              {recipesLeft.map(recipe => (
+                <CardRecipe key={recipe.id} recipe={recipe} />
+              )
+              )}
+            </Carousel>
+          </div>
+        </Col>
+        <Col span={12}>
+          <div className="carousel-container">
+            <Carousel autoplay effect="fade">
+              {recipesRight.map(recipe => (
+                <CardRecipe key={recipe.id} recipe={recipe} />
+              )
+              )}
+            </Carousel>
+          </div>
+        </Col>
+      </Row>
     </>
   );
 }

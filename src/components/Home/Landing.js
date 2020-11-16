@@ -9,6 +9,9 @@ const Landing = () => {
       <div className="carousel-container2">
         <Carousel autoplay effect="fade">
           <div>
+            <Image alt="Portada" src="principal.jpg" height="580px" width="100%" />
+          </div>
+          <div>
             <Image alt="Producto 1" src="proyecto.png" height="580px" width="100%" />
           </div>
           <div>

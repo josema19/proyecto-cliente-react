@@ -7,12 +7,14 @@ import {
   FAILED_GET_ORDERS,
   FAILED_GET_USER_ORDERS,
   GET_DOLAR_VALUE,
+  OPEN_MODAL,
   SELECTED_ORDER,
   SUCCESSFUL_UPLOAD_FILE,
   SUCCESSFUL_CREATE_ORDER,
   SUCCESSFUL_GET_ORDER,
   SUCCESSFUL_GET_ORDERS,
   SUCCESSFUL_GET_USER_ORDERS,
+  SUCCESSFUL_EDIT_ORDER,
   SWITCH_LOADING
 } from '../../types';
 
@@ -46,6 +48,12 @@ export default (state, action) => {
         ...state,
         dolarValue: action.payload,
       };
+    case OPEN_MODAL:
+      return {
+        ...state,
+        order: action.payload.order,
+        showModal: action.payload.bool,
+      };
     case SUCCESSFUL_GET_ORDER:
     case SELECTED_ORDER:
       return {
@@ -58,6 +66,13 @@ export default (state, action) => {
         messageO: action.payload,
         voucher: '',
         userProducts: [],
+      };
+    case SUCCESSFUL_EDIT_ORDER:
+      return {
+        ...state,
+        messageO: action.payload.msg,
+        orders: state.orders.map(item => item.id === action.payload.id ?
+          { ...item, state: action.payload.state } : item),
       };
     case SUCCESSFUL_GET_USER_ORDERS:
     case SUCCESSFUL_GET_ORDERS:

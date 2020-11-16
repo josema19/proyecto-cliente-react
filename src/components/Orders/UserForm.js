@@ -1,10 +1,19 @@
 // Importar librerías
-import React, { useEffect } from 'react';
-import { Button, Row, Col, Form, Input } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Button, Row, Col, Form, Input, Checkbox } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+
+// Definir opciones del checkbox
+const serviceOptions = [
+  { value: 'Tienda', label: 'Retirar en Tienda' },
+  { value: 'Delivery', label: 'Solicitar Delivery' },
+];
 
 const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
   user, userProducts }) => {
+  // Definir state
+  const [options, setOptions] = useState([]);
+
   // Setear valores en formulario
   useEffect(() => {
     // Total a pagar en Bolívares
@@ -29,6 +38,27 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProducts]);
 
+  // Definir funciones
+  /**
+   *
+   * @param {*} changedValue
+   * @param {*} allValues
+   * Escucha y modifica los valores asociados al valor numérico del formulario.
+   */
+  const onChangeValue = (changedValue, allValues) => {
+    // Obtener campo seleccionado
+    const field = Object.keys(changedValue)[0];
+
+    // Setear campos según sea el caso
+    if (field === 'service') {
+      // Obtener id del product
+      const { service } = allValues;
+
+      // Setear valor
+      setOptions(service);
+    };
+  };
+
   // Renderizar componente
   return (
     <div className="form-container form-content">
@@ -36,6 +66,7 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
         form={formInstance}
         name="UserForm"
         layout="vertical"
+        onValuesChange={onChangeValue}
         className="form-box"
         style={style}
       >
@@ -104,6 +135,15 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
               <Input disabled={true} />
             </Form.Item>
           </Col>
+          <Col span={24}>
+            <Form.Item
+              label="* Envío de Pedido (Es necesario seleccionar una opción)"
+              name="service"
+              initialValue={options}
+            >
+              <Checkbox.Group options={serviceOptions} />
+            </Form.Item>
+          </Col>
         </Row>
         <Row style={{ justifyContent: 'space-between' }}>
           <Col>
@@ -116,7 +156,7 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
             </Button>
           </Col>
           <Col>
-            <Button type="primary" htmlType="submit" loading={loading}>
+            <Button type="primary" htmlType="submit" loading={loading} disabled={options.length !== 1 ? true : false}>
               Generar Pedido
           </Button>
           </Col>

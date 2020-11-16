@@ -23,8 +23,8 @@ const { Step } = Steps;
 const CreateOrder = () => {
   // Definir context
   const orderContext = useContext(OrderContext);
-  const { dolarValue, messageO, loading, voucher, userProducts, addProduct, deleteProduct,
-    getDolarValue, cleanMessage, createOrder, switchLoading } = orderContext;
+  const { dolarValue, messageO, loading, showModal, voucher, userProducts, addProduct, deleteProduct,
+    getDolarValue, cleanMessage, createOrder, openModal, switchLoading } = orderContext;
 
   const productContext = useContext(ProductContext);
   const { products, getProducts } = productContext;
@@ -75,7 +75,7 @@ const CreateOrder = () => {
       try {
         // Obtener información de los formularios
         const { paymentType, coinType } = paymentFormInstance.getFieldValue();
-        const { totalBolivares, totalDolares, totalProducts } = userFormInstance.getFieldsValue();
+        const { totalBolivares, totalDolares, totalProducts, service } = userFormInstance.getFieldsValue();
 
         // Construir objeto
         const order = {
@@ -85,6 +85,7 @@ const CreateOrder = () => {
           totalProducts,
           totalBolivares,
           totalDolares,
+          service: service.join(),
           state: 'PENDIENTE',
           UserId: user.id,
         };

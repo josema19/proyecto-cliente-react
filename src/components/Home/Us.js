@@ -48,13 +48,11 @@ const Us = () => {
           </div>
         </Col>
         <Col span="12">
-          <div className="container-us-map">
-            <GoogleMapReact
-              defaultCenter={DEFAULT_CENTER}
-              defaultZoom={DEFAULT_ZOOM}
-              yesIWantToUseGoogleMapApiInternals
-              onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
-            />
+          <div className="container-us-img">
+            <img alt="Ubicación Casa Torta" src="ubication.jpg" />
+            <a href="https://www.google.co.ve/maps/place/Casa+Torta+La+Candelaria/@10.5048301,-66.9086053,17z/data=!3m1!4b1!4m5!3m4!1s0x8c2a5fabd55705eb:0xe459d8b2ac24bd1d!8m2!3d10.5048301!4d-66.9064166">
+              Ver Mapa
+            </a>
           </div>
         </Col>
       </Row>

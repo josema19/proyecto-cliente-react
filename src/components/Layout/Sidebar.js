@@ -53,10 +53,12 @@ const Sidebar = () => {
                 {siderExpanded ? (
                     <div className="side-logo">
                         <CasaTortaLogo />
+                        {user && user.role === 'user' && <h3>WhatsApp : (+58) 412-5824702</h3>}
                     </div>
                 ) : (
                         <div className="side-logo side-small-logo">
                             <CasaTortaLogo />
+                            {user && user.role === 'user' && <h3>WhatsApp : (+58) 412-5824702</h3>}
                         </div>
                     )}
                 <Menu
