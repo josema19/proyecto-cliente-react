@@ -42,11 +42,11 @@ const EditProfile = () => {
   useEffect(() => {
     if (user) {
       userFormInstance.setFieldsValue({
-        firstName: userStorage.firstName || user.firstName,
-        lastName: userStorage.lastName || user.lastName,
-        phoneType: userStorage.phoneType || user.phone.split('-')[0],
-        phoneNumber: userStorage.phoneNumber || user.phone.split('-')[1],
-        address: userStorage.address || user.address,
+        firstName: (userStorage && userStorage.firstName) || user.firstName,
+        lastName: (userStorage && userStorage.lastName) || user.lastName,
+        phoneType: (userStorage && userStorage.phoneType) || user.phone.split('-')[0],
+        phoneNumber: (userStorage && userStorage.phoneNumber) || user.phone.split('-')[1],
+        address: (userStorage && userStorage.address) || user.address,
       });
     };
   }, [user, userFormInstance]);

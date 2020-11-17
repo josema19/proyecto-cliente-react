@@ -32,11 +32,11 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
 
     // Setear valores
     formInstance.setFieldsValue({
-      firstName: userStorage.firstName || user.firstName,
-      lastName: userStorage.lastName || user.lastName,
-      phoneNumber: (userStorage.phoneType + '-' + userStorage.phoneNumber) || user.phone,
+      firstName: (userStorage && userStorage.firstName) || user.firstName,
+      lastName: (userStorage && userStorage.lastName) || user.lastName,
+      phoneNumber: (userStorage && (userStorage.phoneType + '-' + userStorage.phoneNumber)) || user.phone,
       card: user.card,
-      address: userStorage.address || user.address,
+      address: (userStorage && userStorage.address) || user.address,
       totalProducts: userProducts.length,
       totalBolivares: totalBolivares,
       totalDolares: totalDolares,
