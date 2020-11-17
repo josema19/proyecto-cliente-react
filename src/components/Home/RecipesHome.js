@@ -19,7 +19,7 @@ const CardRecipe = ({ recipe }) => {
               title="Ingredientes"
               description={
                 <Tooltip
-                  title={recipe.ingredients}
+                  title='Ingresa a nuestra página para ver el resto de los ingredientes de esta receta'
                 >
                   <p className="summary2">{recipe.ingredients}</p>
                 </Tooltip>
@@ -30,7 +30,7 @@ const CardRecipe = ({ recipe }) => {
               title="Preparación"
               description={
                 <Tooltip
-                  title={recipe.preparation}
+                  title='Ingresa a nuestra página para ver el resto de la preparación de esta receta'
                 >
                   <p className="summary2">{recipe.preparation}</p>
                 </Tooltip>

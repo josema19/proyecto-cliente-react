@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useState, useEffect, useContext } from 'react';
-import { Carousel, Card, Divider, Row, Col } from 'antd';
+import { Carousel, Card, Divider, Row, Col, Tooltip } from 'antd';
 
 // Importar utilidades
 import putFormat from '../../utils/putFormat'
@@ -18,7 +18,16 @@ const CardProduct = ({ product }) => {
       <div className="container-card-content-external">
         <Card bordered={false} title={product.name}>
           <Card bordered={false} cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
-            <Meta title="Descripción" description={product.description} />
+            <Meta
+              title="Descripción"
+              description={
+                <Tooltip
+                  title='Ingresa a nuestra página para ver el resto de la descripción de este producto'
+                >
+                  <p className="summary2">{product.description}</p>
+                </Tooltip>
+              }
+            />
             <Divider />
             <Meta title="Precio Actual" description={putFormat(product.price, 2)} />
           </Card>
