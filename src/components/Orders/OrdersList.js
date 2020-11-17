@@ -63,8 +63,11 @@ const OrdersList = () => {
         <Link to={`${ROUTES.ORDERS}/${record.id}`}>
           <EyeOutlined title="Ver" onClick={() => selectedOrder(record)} />
         </Link>
-        {user.role === 'admin' && (
-          <EditOutlined title="Editar" onClick={() => openModal(record, true)} />
+        {record.state === 'PENDIENTE' && (
+          <EditOutlined
+            title="Editar"
+            onClick={() => openModal(record, true)}
+          />
         )}
       </Space>
     );

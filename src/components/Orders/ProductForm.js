@@ -33,8 +33,6 @@ const ProductForm = ({ formInstance, dolarValue, style,
       totalDolares: selectedProduct.price * formValues.quantity / dolarValue,
     };
 
-    console.log(newProduct);
-
     // Agregar producto
     addProduct(newProduct);
 

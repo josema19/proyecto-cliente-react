@@ -35,11 +35,11 @@ const OrderState = ({ children }) => {
     dolarValue: 0,
     loading: false,
     messageO: null,
-    orders: [],
     order: null,
+    orders: [],
     showModal: false,
-    voucher: '',
     userProducts: [],
+    voucher: '',
   };
 
   // Definir reducer
@@ -82,7 +82,7 @@ const OrderState = ({ children }) => {
       // Actualizar state del mensaje
       dispatch({
         type: SUCCESSFUL_CREATE_ORDER,
-        payload: 'Gracias por su compra.' + (values.service === 'Tienda' ? ' Lo esperamos!' : 'Nos estaremos comunicando con usted!'),
+        payload: 'Gracias por su compra.' + (values.service === 'Tienda' ? ' Lo esperamos!' : ' Nos estaremos comunicando con usted!'),
       });
 
       return Promise.resolve();
@@ -277,9 +277,9 @@ const OrderState = ({ children }) => {
         messageO: state.messageO,
         order: state.order,
         orders: state.orders,
-        userProducts: state.userProducts,
-        step: state.step,
         showModal: state.showModal,
+        userProducts: state.userProducts,
+        voucher: state.voucher,
         addProduct,
         cleanMessage,
         createOrder,

@@ -3,20 +3,27 @@ import React, { useContext, useEffect } from 'react';
 import { message, Select, Form, Button, Modal } from 'antd';
 
 // Importar context
+import AuthContext from '../../context/auth/AuthContext';
 import OrderContext from '../../context/orders/OrderContext';
 
-// Definir información de los tipos de pago
-const orderState = [
-  { value: 'PENDIENTE', label: 'Pendiente' },
+// Definir información de los tipos de estado para el admin
+const orderStateAdmin = [
   { value: 'COMPLETADO', label: 'Completado' },
   { value: 'CANCELADO', label: 'Cancelado' },
 ];
+
+const orderStateUser = [
+  { value: 'CANCELADO', label: 'Cancelado' },
+]
 
 // Importar subcomponente el componente Steps
 const { Option } = Select;
 
 const EditOrder = () => {
   // Definir context
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+
   const orderContext = useContext(OrderContext);
   const { loading, messageO, showModal, openModal, switchLoading,
     editOrder, cleanMessage } = orderContext;
@@ -93,11 +100,19 @@ const EditOrder = () => {
             rules={[{ required: true, message: 'Por favor seleccione un estado para el pedido' }]}
           >
             <Select placeholder="Selecciona" showSearch>
-              {orderState.map((option) => (
-                <Option key={option.value} value={option.value}>
-                  {option.label}
-                </Option>
-              ))}
+              {user.role === 'user' ? (
+                orderStateUser.map((option) => (
+                  <Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Option>
+                ))
+              ) : (
+                  orderStateAdmin.map((option) => (
+                    <Option key={option.value} value={option.value}>
+                      {option.label}
+                    </Option>
+                  ))
+                )}
             </Select>
           </Form.Item>
           <Form.Item>
