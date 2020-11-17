@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useState, useEffect, useContext } from 'react';
-import { Carousel, Card, Divider, Row, Col } from 'antd';
+import { Carousel, Card, Divider, Row, Col, Tooltip } from 'antd';
 
 // Importar context
 import RecipeContext from '../../context/recipes/RecipeContext.js';
@@ -12,13 +12,33 @@ const { Meta } = Card;
 const CardRecipe = ({ recipe }) => {
   return (
     <div className="container-card">
-      <Card bordered={false} title={recipe.name}>
-        <Card bordered={false} cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
-          <Meta title="Ingredientes" description={recipe.ingredients} />
-          <Divider />
-          <Meta title="Preparación" description={recipe.preparation} />
+      <div className="container-card-content-external">
+        <Card bordered={false} title={recipe.name}>
+          <Card bordered={false} cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
+            <Meta
+              title="Ingredientes"
+              description={
+                <Tooltip
+                  title={recipe.ingredients}
+                >
+                  <p className="summary2">{recipe.ingredients}</p>
+                </Tooltip>
+              }
+            />
+            <Divider />
+            <Meta
+              title="Preparación"
+              description={
+                <Tooltip
+                  title={recipe.preparation}
+                >
+                  <p className="summary2">{recipe.preparation}</p>
+                </Tooltip>
+              }
+            />
+          </Card>
         </Card>
-      </Card>
+      </div>
     </div>
   )
 };

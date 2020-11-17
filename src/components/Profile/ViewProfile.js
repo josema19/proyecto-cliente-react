@@ -10,12 +10,13 @@ import * as ROUTES from '../../constants/routes';
 // Importar context
 import AuthContext from '../../context/auth/AuthContext';
 
+// Obtener información del usuario en local storage
+const userStorage = JSON.parse(localStorage.getItem('user'));
+
 const ViewProfile = () => {
   // Definir context de usuario autenticado
   const authContext = useContext(AuthContext);
   const { user } = authContext;
-
-  console.log(user);
 
   // Renderizar componente
   return (
@@ -24,11 +25,13 @@ const ViewProfile = () => {
         <Col span={12}>
           <div className="container-image-profile">
             <h1>Imagen de Perfil</h1>
-            {user.image ? (
+            {userStorage.image ? (
+              <Avatar src={`${process.env.REACT_APP_BANCKEND_URL}/${userStorage.image}`} size={256} />
+            ) : user.image ? (
               <Avatar src={`${process.env.REACT_APP_BANCKEND_URL}/${user.image}`} size={256} />
             ) : (
-                <p>No tiene Imagen de Perfil</p>
-              )}
+                  <p>No tiene Imagen de Perfil</p>
+                )}
           </div>
         </Col>
         <Col span={12}>
@@ -38,15 +41,15 @@ const ViewProfile = () => {
             column={2}
             colon={false}
           >
-            <Descriptions.Item label="Nombre">{user.firstName}</Descriptions.Item>
-            <Descriptions.Item label="Apellido">{user.lastName}</Descriptions.Item>
+            <Descriptions.Item label="Nombre">{userStorage.firstName || user.firstName}</Descriptions.Item>
+            <Descriptions.Item label="Apellido">{userStorage.lastName || user.lastName}</Descriptions.Item>
             <Descriptions.Item label="Email">{user.email}</Descriptions.Item>
             <Descriptions.Item label="Cédula">{user.card}</Descriptions.Item>
             <Descriptions.Item label="Teléfono">
-              {user.phone}
+              {(userStorage.phoneType + '-' + userStorage.phoneNumber) || user.phone}
             </Descriptions.Item>
             <Descriptions.Item label="Dirección">
-              {user.address}
+              {userStorage.address || user.address}
             </Descriptions.Item>
           </Descriptions>
         </Col>

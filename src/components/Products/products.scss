@@ -19,9 +19,6 @@
 }
 
 .container-card {
-    width: 65%;
-    margin: 0 auto;
-
     .ant-card-head {
         background-color: $gray;
         text-align: center;
@@ -36,9 +33,24 @@
         background-color: $aquamarine;
     }
 
-    .ant-card-cover {
-        img {
-            height: 280px;
+    .container-card-content-internal {
+        width: 30%;
+        margin: 0 auto;
+        .ant-card-cover {
+            img {
+                height: 150px;
+            }
+        }
+    }
+
+    .container-card-content-external {
+        width: 65%;
+        margin: 0 auto;
+
+        .ant-card-cover {
+            img {
+                height: 280px;
+            }
         }
     }
 }

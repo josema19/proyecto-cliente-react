@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useContext, useEffect } from 'react';
-import { Card, Divider, Button, message } from 'antd';
+import { Card, Divider, Button, message, Tooltip } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
@@ -37,19 +37,37 @@ const RecipeItem = () => {
   return (
     recipe && (
       <div className="container-card">
-        <div>
+        <div className="container-card-content-internal">
           <Button type="primary" href={ROUTES.RECIPES}>
             <ArrowLeftOutlined />
             Listado de Recetas
           </Button>
-        </div>
-        <Card bordered={false} title={recipe.name}>
-          <Card bordered={false} cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
-            <Meta title="Ingredientes" description={recipe.ingredients} />
-            <Divider />
-            <Meta title="Preparación" description={recipe.preparation} />
+          <Card bordered={false} title={recipe.name}>
+            <Card bordered={false} cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
+              <Meta
+                title="Ingredientes"
+                description={
+                  <Tooltip
+                    title={recipe.ingredients}
+                  >
+                    <p className="summary">{recipe.ingredients}</p>
+                  </Tooltip>
+                }
+              />
+              <Divider />
+              <Meta
+                title="Preparación"
+                description={
+                  <Tooltip
+                    title={recipe.preparation}
+                  >
+                    <p className="summary">{recipe.preparation}</p>
+                  </Tooltip>
+                }
+              />
+            </Card>
           </Card>
-        </Card>
+        </div>
       </div>
     )
   );

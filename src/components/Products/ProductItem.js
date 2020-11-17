@@ -45,27 +45,27 @@ const ProductItem = () => {
   return (
     product && (
       <div className="container-card">
-        <div>
+        <div className="container-card-content-internal">
           <Button type="primary" href={ROUTES.PRODUCTS}>
             <ArrowLeftOutlined />
             Listado de Productos
-          </Button>
-        </div>
-        <Card bordered={false} title={product.name}>
-          <Card bordered={false} cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
-            {user.role === 'admin' && (
-              <>
-                <Meta title="Código" description={product.code} />
-                <Divider />
-              </>
-            )}
-            <Meta title="Descripción" description={product.description} />
-            <Divider />
-            <Meta title="Unidades Disponibles" description={putFormat(product.quantityAvailable)} />
-            <Divider />
-            <Meta title="Precio Actual" description={putFormat(product.price, 2)} />
+        </Button>
+          <Card bordered={false} title={product.name}>
+            <Card bordered={false} cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
+              {user.role === 'admin' && (
+                <>
+                  <Meta title="Código" description={product.code} />
+                  <Divider />
+                </>
+              )}
+              <Meta title="Descripción" description={product.description} />
+              <Divider />
+              <Meta title="Unidades Disponibles" description={putFormat(product.quantityAvailable)} />
+              <Divider />
+              <Meta title="Precio Actual" description={putFormat(product.price, 2)} />
+            </Card>
           </Card>
-        </Card>
+        </div>
       </div>
     )
   );

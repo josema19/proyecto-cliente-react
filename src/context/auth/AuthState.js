@@ -92,6 +92,9 @@ const AuthState = ({ children }) => {
         payload: response.data.msg,
       });
 
+      // Guardar valores en local storages
+      localStorage.setItem('user', JSON.stringify(values));
+
       return Promise.resolve();
     } catch (error) {
       // Enviar mensaje de falla

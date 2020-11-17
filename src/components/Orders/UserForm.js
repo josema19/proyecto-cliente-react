@@ -12,6 +12,9 @@ const serviceOptions = [
   { value: 'Delivery', label: 'Solicitar Delivery' },
 ];
 
+// Obtener información del usuario en local storage
+const userStorage = JSON.parse(localStorage.getItem('user'));
+
 const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
   user, userProducts }) => {
   // Definir state
@@ -29,11 +32,11 @@ const UserForm = ({ formInstance, loading, style, handlePreviousButtonClick,
 
     // Setear valores
     formInstance.setFieldsValue({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      phoneNumber: user.phone,
+      firstName: userStorage.firstName || user.firstName,
+      lastName: userStorage.lastName || user.lastName,
+      phoneNumber: (userStorage.phoneType + '-' + userStorage.phoneNumber) || user.phone,
       card: user.card,
-      address: user.address,
+      address: userStorage.address || user.address,
       totalProducts: userProducts.length,
       totalBolivares: totalBolivares,
       totalDolares: totalDolares,

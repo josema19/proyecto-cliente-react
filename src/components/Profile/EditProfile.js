@@ -15,6 +15,9 @@ import Dropzone from '../Dropzone';
 // Importar subcomponente Option
 const { Option } = Select;
 
+// Obtener información del usuario en local storage
+const userStorage = JSON.parse(localStorage.getItem('user'));
+
 const EditProfile = () => {
   // Definir context de usuario autenticado
   const authContext = useContext(AuthContext);
@@ -39,11 +42,11 @@ const EditProfile = () => {
   useEffect(() => {
     if (user) {
       userFormInstance.setFieldsValue({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        phoneType: user.phone.split('-')[0],
-        phoneNumber: user.phone.split('-')[1],
-        address: user.address,
+        firstName: userStorage.firstName || user.firstName,
+        lastName: userStorage.lastName || user.lastName,
+        phoneType: userStorage.phoneType || user.phone.split('-')[0],
+        phoneNumber: userStorage.phoneNumber || user.phone.split('-')[1],
+        address: userStorage.address || user.address,
       });
     };
   }, [user, userFormInstance]);
