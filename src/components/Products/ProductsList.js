@@ -141,14 +141,16 @@ const ProductsList = () => {
     <div className="users-list">
       <div className="users-list-title">
         <h1>Productos de Casa Torta</h1>
-        <Link to={ROUTES.PRODUCT_CREATE}>
-          <Button
-            type="primary"
-            icon={<PlusOutlined title="Nuevo" />}
-          >
-            Nuevo
-          </Button>
-        </Link>
+        {user.role === 'admin' && (
+          <Link to={ROUTES.PRODUCT_CREATE}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined title="Nuevo" />}
+            >
+              Nuevo
+            </Button>
+          </Link>
+        )}
       </div>
       <Divider />
       <DeleteProductModal

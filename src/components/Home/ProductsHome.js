@@ -15,8 +15,8 @@ const { Meta } = Card;
 const CardProduct = ({ product }) => {
   return (
     <div className="container-card">
-      <Card title={product.name}>
-        <Card cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
+      <Card bordered={false} title={product.name}>
+        <Card bordered={false} cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
           <Meta title="Descripción" description={product.description} />
           <Divider />
           <Meta title="Precio Actual" description={putFormat(product.price, 2)} />

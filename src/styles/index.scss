@@ -56,3 +56,33 @@ body {
     text-transform: uppercase;
     width: 100%;
 }
+
+// Estilo de iconos de tablas
+span {
+    svg {
+        color: $black;
+    }
+}
+
+// Estilo para modales
+.modal-container {
+    .ant-modal-footer,
+    .ant-modal-body {
+        align-items: center;
+        background-color: $aquamarine;
+        border: 1px solid $black;
+        box-shadow: 0px 25px 35px -17px rgba(0, 0, 0, 0.56);
+        justify-content: center;
+        width: 550px;
+        -webkit-box-shadow: 0px 25px 35px -17px rgba(0, 0, 0, 0.56);
+        -moz-box-shadow: 0px 25px 35px -17px rgba(0, 0, 0, 0.56);
+    }
+
+    h2 {
+        font-weight: bold;
+    }
+
+    .ant-btn {
+        color: $black !important;
+    }
+}

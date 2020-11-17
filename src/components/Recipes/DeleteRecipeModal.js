@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useEffect, useContext } from 'react';
-import { Button, Modal, message } from 'antd';
+import { Button, Modal, message, Divider } from 'antd';
 
 // Importar context
 import RecipeContext from '../../context/recipes/RecipeContext';
@@ -44,16 +44,18 @@ const DeleteRecipeModal = ({ openModal, setOpenModal }) => {
       onCancel={() => {
         setOpenModal(null);
       }}
+      className="modal-container"
       confirmLoading={loading}
       footer={
-        <div className="">
+        <div>
           <Button onClick={() => deleteConfirmedRecipe()}>Eliminar</Button>
         </div>
       }
       visible={openModal}
     >
-      <div className="">
-        <h3>Eliminar Información de la Receta</h3>
+      <div>
+        <h2>Eliminar Información de la Receta</h2>
+        <Divider />
         <p>
           Se eliminará la Receta seleccionada y no podrá recuperarse. Seguro que desea realizar esta acción?
         </p>

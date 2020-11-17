@@ -136,15 +136,17 @@ const RecipesList = () => {
   return (
     <div className="users-list">
       <div className="users-list-title">
-        <h1>Recetas del Local</h1>
-        <Link to={ROUTES.RECIPE_CREATE}>
-          <Button
-            type="primary"
-            icon={<PlusOutlined title="Nuevo" />}
-          >
-            Nuevo
-          </Button>
-        </Link>
+        <h1>Recetas de Casa Torta</h1>
+        {user.role === 'admin' && (
+          <Link to={ROUTES.RECIPE_CREATE}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined title="Nuevo" />}
+            >
+              Nuevo
+            </Button>
+          </Link>
+        )}
       </div>
       <Divider />
       <DeleteRecipeModal

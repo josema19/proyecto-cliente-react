@@ -72,15 +72,16 @@ const EditOrder = () => {
         orderFormInstance.resetFields();
         openModal(null, false);
       }}
-      footer={<div id="order-modal-footer"></div>}
+      className="modal-container"
+      footer={false}
       confirmLoading={loading}
       visible={showModal}
     >
-      <div className="order-modal-body">
-        <h3>Editar Estado Pedido</h3>
+      <div className="form-container form-edit-order">
+        <h2>Editar Estado Pedido</h2>
         <Form
           form={orderFormInstance}
-          className="order-modal-form"
+          className="form-box"
           layout="vertical"
           name="order_form"
           onFinish={(values) => onFinish(values)}

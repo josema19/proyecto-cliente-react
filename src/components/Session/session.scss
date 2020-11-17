@@ -22,6 +22,11 @@
         margin: 12px auto;
     }
 
+    .ant-col.ant-form-item-label {
+        font-weight: bold;
+    }
+
+    .ant-input-number,
     .ant-input {
         flex: 1;
         border: 2px solid $color3;
@@ -32,6 +37,7 @@
 
     .ant-select {
         border: 1px solid $black;
+        margin-bottom: 5px;
     }
 
     .ant-form-item-explain {

@@ -75,7 +75,7 @@
     }
 
     .ant-menu-item a {
-        color: $white !important;
+        color: $black !important;
     }
 
     .ant-divider {
@@ -117,8 +117,8 @@
 
                 .whatsapp-phone,
                 a {
-                    color: $white;
-                    font-size: 16px;
+                    color: $black;
+                    font-size: 18px;
                     margin-bottom: 15px;
                 }
             }
@@ -153,7 +153,6 @@
 
     .side-item {
         background-color: $aquamarine;
-        color: $white;
         font-size: 16px;
         margin: 0 !important;
         padding: 1.5rem 0;

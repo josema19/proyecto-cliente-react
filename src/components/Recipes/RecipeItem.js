@@ -43,8 +43,8 @@ const RecipeItem = () => {
             Listado de Recetas
           </Button>
         </div>
-        <Card title={recipe.name}>
-          <Card cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
+        <Card bordered={false} title={recipe.name}>
+          <Card bordered={false} cover={<img alt={recipe.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${recipe.image}`} />} >
             <Meta title="Ingredientes" description={recipe.ingredients} />
             <Divider />
             <Meta title="Preparación" description={recipe.preparation} />

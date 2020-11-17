@@ -13,13 +13,16 @@
         .ant-table-thead {
             .ant-table-column-sorters,
             .ant-table-cell {
-                background-color: $white;
-                color: $color2;
-                font-size: 16px;
+                background-color: $gray;
+                color: $black;
+                font-size: 13px;
+                font-weight: bold;
+                text-align: center;
             }
         }
 
         .ant-table-row {
+            text-align: center;
             background-color: $aquamarine;
 
             td {

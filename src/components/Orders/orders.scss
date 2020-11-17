@@ -14,7 +14,7 @@
 .container-list {
     width: 40%;
     margin: 0 auto;
-    background-color: $gray;
+    background-color: $aquamarine;
 
     .container-list-header {
         align-items: center;
@@ -53,8 +53,6 @@
         font-weight: normal;
     }
 
-    // text-align: center;
-
     .container-bank-header {
         h2 {
             font-weight: bold;
@@ -68,5 +66,17 @@
             font-weight: bold;
             text-align: center;
         }
+    }
+}
+
+.form-edit-order {
+    .form-box {
+        align-items: center;
+        background-color: $aquamarine;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        justify-content: center;
+        width: 495px;
     }
 }

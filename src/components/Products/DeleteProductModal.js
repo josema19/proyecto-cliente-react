@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useEffect, useContext } from 'react';
-import { Button, Modal, message } from 'antd';
+import { Button, Modal, message, Divider } from 'antd';
 
 // Importar context
 import ProductContext from '../../context/products/ProductContext';
@@ -44,16 +44,18 @@ const DeleteProductModal = ({ openModal, setOpenModal }) => {
       onCancel={() => {
         setOpenModal(null);
       }}
+      className="modal-container"
       confirmLoading={loading}
       footer={
-        <div className="">
+        <div>
           <Button onClick={() => deleteConfirmedProduct()}>Eliminar</Button>
         </div>
       }
       visible={openModal}
     >
-      <div className="">
-        <h3>Eliminar Información del Producto</h3>
+      <div>
+        <h2>Eliminar Información del Producto</h2>
+        <Divider />
         <p>
           Se eliminará el Producto seleccionado y no podrá recuperarse. Seguro que desea realizar esta acción?
         </p>

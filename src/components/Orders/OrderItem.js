@@ -53,7 +53,6 @@ const OrderItem = () => {
         <List
           size="large"
           header={<Header />}
-          // footer={<Footer />}
           bordered
           dataSource={order.products}
           renderItem={item => {

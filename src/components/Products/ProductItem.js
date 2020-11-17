@@ -51,8 +51,8 @@ const ProductItem = () => {
             Listado de Productos
           </Button>
         </div>
-        <Card title={product.name}>
-          <Card cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
+        <Card bordered={false} title={product.name}>
+          <Card bordered={false} cover={<img alt={product.name} src={`${process.env.REACT_APP_BANCKEND_URL}/${product.image}`} />} >
             {user.role === 'admin' && (
               <>
                 <Meta title="Código" description={product.code} />
