@@ -41,15 +41,15 @@ const ViewProfile = () => {
             column={2}
             colon={false}
           >
-            <Descriptions.Item label="Nombre">{userStorage.firstName || user.firstName}</Descriptions.Item>
-            <Descriptions.Item label="Apellido">{userStorage.lastName || user.lastName}</Descriptions.Item>
+            <Descriptions.Item label="Nombre">{(userStorage && userStorage.firstName) || user.firstName}</Descriptions.Item>
+            <Descriptions.Item label="Apellido">{(userStorage && userStorage.lastName) || user.lastName}</Descriptions.Item>
             <Descriptions.Item label="Email">{user.email}</Descriptions.Item>
             <Descriptions.Item label="Cédula">{user.card}</Descriptions.Item>
             <Descriptions.Item label="Teléfono">
-              {(userStorage.phoneType + '-' + userStorage.phoneNumber) || user.phone}
+              {(userStorage && (userStorage.phoneType + '-' + userStorage.phoneNumber)) || user.phone}
             </Descriptions.Item>
             <Descriptions.Item label="Dirección">
-              {userStorage.address || user.address}
+              {(userStorage && userStorage.address) || user.address}
             </Descriptions.Item>
           </Descriptions>
         </Col>
