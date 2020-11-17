@@ -25,7 +25,7 @@ const ViewProfile = () => {
         <Col span={12}>
           <div className="container-image-profile">
             <h1>Imagen de Perfil</h1>
-            {userStorage.image ? (
+            {userStorage && userStorage.image ? (
               <Avatar src={`${process.env.REACT_APP_BANCKEND_URL}/${userStorage.image}`} size={256} />
             ) : user.image ? (
               <Avatar src={`${process.env.REACT_APP_BANCKEND_URL}/${user.image}`} size={256} />
