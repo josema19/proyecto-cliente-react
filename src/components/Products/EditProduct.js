@@ -140,9 +140,9 @@ const EditProduct = () => {
             >
               <InputNumber
                 min="1"
-                step="100000"
+                step="0.1"
                 style={{ width: '100%' }}
-                formatter={(value) => putFormat(value)}
+                formatter={(value) => putFormat(value, 2)}
                 parser={(value) => value.replace(/([^0-9])/g, '') || 1}
               />
             </Form.Item>
