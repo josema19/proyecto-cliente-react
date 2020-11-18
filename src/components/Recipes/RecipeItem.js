@@ -1,6 +1,6 @@
 // Importar librerías
 import React, { useContext, useEffect } from 'react';
-import { Card, Divider, Button, message, Tooltip } from 'antd';
+import { Card, Divider, Button, message } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
