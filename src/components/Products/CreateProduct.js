@@ -21,7 +21,7 @@ const { TextArea } = Input;
 const CreateProduct = () => {
   // Definir context
   const productContext = useContext(ProductContext);
-  const { loading, messageP, createProduct, cleanMessage, switchLoading } = productContext;
+  const { image, loading, messageP, createProduct, cleanMessage, switchLoading } = productContext;
 
   // Definir nueva instancia de useHistory
   const history = useHistory();
@@ -171,14 +171,19 @@ const CreateProduct = () => {
           </Col>
           <Col span="24">
             <Form.Item
-              label="Imagen"
+              label="Imagen (El producto debe tener una imagen asociada)"
             >
               <Dropzone formCall="product" />
             </Form.Item>
           </Col>
           <Col span="24">
             <Form.Item className="last-element">
-              <Button type="primary" htmlType="submit" loading={loading}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+                disabled={image === '' ? true : false}
+              >
                 Crear Producto
               </Button>
             </Form.Item>

@@ -18,7 +18,7 @@ const { TextArea } = Input;
 const CreateRecipe = () => {
   // Definir context
   const recipeContext = useContext(RecipeContext);
-  const { loading, messageR, createRecipe, cleanMessage, switchLoading } = recipeContext;
+  const { image, loading, messageR, createRecipe, cleanMessage, switchLoading } = recipeContext;
 
   // Definir nueva instancia de useHistory
   const history = useHistory();
@@ -127,14 +127,18 @@ const CreateRecipe = () => {
           </Col>
           <Col span="24">
             <Form.Item
-              label="Imagen"
+              label="Imagen (La receta debe tener una imagen asociada)"
             >
               <Dropzone formCall="recipe" />
             </Form.Item>
           </Col>
           <Col span="24">
             <Form.Item className="last-element">
-              <Button type="primary" htmlType="submit" loading={loading}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+                disabled={image === '' ? true : false}>
                 Crear Receta
             </Button>
             </Form.Item>
