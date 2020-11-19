@@ -104,8 +104,8 @@ const ProductsList = () => {
       title: 'PRECIO',
       dataIndex: 'price',
       key: 'price',
-      render: (_, record) => putFormat(record.price),
-      sorter: (a, b) => putFormat(a.price) - putFormat(b.price),
+      render: (_, record) => putFormat(record.price, 2),
+      sorter: (a, b) => putFormat(a.price, 2) - putFormat(b.price, 2),
       show: true,
     },
     {

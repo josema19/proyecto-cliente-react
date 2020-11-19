@@ -193,7 +193,7 @@ const ProductForm = ({ formInstance, dolarValue, style,
                   <InputNumber
                     style={{ width: '100%' }}
                     disabled={true}
-                    formatter={(value) => putFormat(value)}
+                    formatter={(value) => putFormat(value, 2)}
                   />
                 </Form.Item>
               </Col>

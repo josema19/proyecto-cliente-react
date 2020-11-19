@@ -1,5 +1,5 @@
 // Importar librerías
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Row, Col, Form, Input, Button, message, InputNumber } from 'antd';
 import { useHistory } from 'react-router-dom';
 
@@ -25,6 +25,9 @@ const EditProduct = () => {
 
   // Definir nueva instancia de useHistory
   const history = useHistory();
+
+  // Definir state
+  const [priceFocus, setPriceFocus] = useState(false);
 
   // Definir nueva instancia de useForm
   const [ProductFormInstance] = Form.useForm();
@@ -140,10 +143,17 @@ const EditProduct = () => {
             >
               <InputNumber
                 min="1"
-                step="0.1"
-                style={{ width: '100%' }}
-                formatter={(value) => putFormat(value, 2)}
-                parser={(value) => value.replace(/([^0-9])/g, '') || 1}
+                precision={2}
+                type={priceFocus ? 'number' : 'string'}
+                formatter={(value) =>
+                  priceFocus ? value : value ? putFormat(value, 2) : 0
+                }
+                parser={(value) =>
+                  value.replace(',', '.').replace(/^(0.)|([^0-9.])/, '')
+                }
+                onFocus={() => setPriceFocus(true)}
+                onBlur={() => setPriceFocus(false)}
+                onClick={(e) => e.target.select()}
               />
             </Form.Item>
           </Col>
