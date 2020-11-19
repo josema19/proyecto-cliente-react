@@ -64,7 +64,7 @@ const OrderItem = () => {
         <List
           size="large"
           header={<Header />}
-          footer={order.vaucher !== '' ? <Footer /> : null}
+          footer={order.voucher !== '' ? <Footer /> : null}
           bordered
           dataSource={order.products}
           renderItem={item => {
